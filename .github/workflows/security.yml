@@ -16,32 +16,42 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Scan repository for secrets
+        run: >-
+          docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:v8.24.3
+          detect --source=/repo --config=/repo/.gitleaks.toml --redact --verbose
 
   codeql:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v3
+      - uses: actions/checkout@v5
+      - uses: github/codeql-action/init@v4
         with:
           languages: javascript-typescript
-      - uses: github/codeql-action/analyze@v3
+      - uses: github/codeql-action/analyze@v4
+        with:
+          output: codeql-results
+          upload: false
+      - name: Upload CodeQL results
+        uses: actions/upload-artifact@v5
+        with:
+          name: codeql-results
+          path: codeql-results
+          retention-days: 14
 
   supply-chain:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
           version: 11.3.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -75,7 +85,7 @@ jobs:
           test -s sbom.cdx.json
 
       - name: Upload SBOM artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sbom-cyclonedx
           path: sbom.cdx.json
@@ -94,7 +104,7 @@ jobs:
       matrix:
         app: [server, web, worker]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build production image
         run: |

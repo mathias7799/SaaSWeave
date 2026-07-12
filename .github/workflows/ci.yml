@@ -37,13 +37,13 @@ jobs:
     env:
       REDIS_URL: redis://localhost:6379/15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
           version: 11.3.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -139,13 +139,13 @@ jobs:
       REDIS_URL: redis://localhost:6379/1
       BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
           version: 11.3.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -207,13 +207,13 @@ jobs:
       E2E_SERVER_URL: http://127.0.0.1:5000/server
       REQUIRE_EMAIL_VERIFICATION: "false"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: pnpm/action-setup@v4
         with:
           version: 11.3.0
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -234,7 +234,7 @@ jobs:
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report
           path: apps/web/playwright-report/
@@ -242,7 +242,7 @@ jobs:
 
       - name: Upload Playwright traces
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-test-results
           path: apps/web/test-results/
