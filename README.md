@@ -8,6 +8,19 @@ The repository is intended for teams building a hosted product with workspaces, 
 background processing, administration, and operational controls already connected. The internal
 workspace packages use the `@saasweave/*` scope consistently across apps, libraries, and tooling.
 
+## Product tour
+
+![SaaSWeave home page](docs/media/saasweave-home.png)
+
+The public runtime workbench verifies the connected API, client hydration, localization, and image
+delivery against the running stack.
+
+![SaaSWeave runtime workbench](docs/media/saasweave-playground.png)
+
+Optional OpenAPI documentation exposes the typed server surface through an interactive Scalar UI.
+
+![SaaSWeave API documentation](docs/media/saasweave-api-docs.png)
+
 ## What is included
 
 - Workspace tenancy with member roles, invitations, profiles, and organization switching
