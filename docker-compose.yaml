@@ -12,6 +12,7 @@ x-server-env: &server-env
   <<: *app-env
   ENABLE_OPEN_API_DOCS: ${ENABLE_OPEN_API_DOCS:-false}
   PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:-}
+  REQUIRE_EMAIL_VERIFICATION: ${REQUIRE_EMAIL_VERIFICATION:-false}
   REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
   CACHE_PREFIX: ${CACHE_PREFIX:-saasweave}
   CACHE_DEFAULT_TTL_SECONDS: ${CACHE_DEFAULT_TTL_SECONDS:-300}
@@ -58,7 +59,7 @@ services:
       dockerfile: apps/server/Dockerfile
       target: migrator
     environment:
-      <<: *app-env
+      <<: *server-env
     networks:
       - saasweave-network
     depends_on:

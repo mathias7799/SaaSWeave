@@ -78,7 +78,7 @@ services:
       dockerfile: apps/server/Dockerfile
       target: migrator
     environment:
-      <<: *app-env
+      <<: *server-env
     exclude_from_hc: true
     depends_on:
       postgres:
