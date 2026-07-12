@@ -1,0 +1,39 @@
+name: Feature request
+description: Propose a focused capability or improvement
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Which user or operator problem should be solved? Include concrete examples.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe observable behavior and success criteria without prescribing unnecessary implementation details.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds or different approaches did you evaluate?
+  - type: textarea
+    id: impact
+    attributes:
+      label: Scope and operational impact
+      description: Note expected package boundaries, data migrations, environment values, security concerns, background jobs, or deployment changes.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and pull requests.
+          required: true
+        - label: I described the problem separately from the proposed solution.
+          required: true

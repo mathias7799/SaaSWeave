@@ -1,0 +1,23 @@
+{
+  "recommendations": [
+    // Vite+ Extensions
+    "VoidZero.vite-plus-extension-pack",
+    // Markdown
+    "unifiedjs.vscode-mdx",
+    // Git
+    "usernamehw.errorlens",
+    "eamodio.gitlens",
+    "solomonkinard.git-blame",
+    "GitHub.vscode-pull-request-github",
+    "pflannery.vscode-versionlens",
+    // Asset Previews
+    "midudev.better-svg",
+    "kisstkondoros.vscode-gutter-preview",
+    // Code Visualizations/Highlighting
+    "johnsoncodehk.vscode-tsconfig-helper",
+    "naumovs.color-highlight",
+    "wayou.vscode-todo-highlight",
+    "ibm.output-colorizer",
+    "oderwat.indent-rainbow"
+  ]
+}

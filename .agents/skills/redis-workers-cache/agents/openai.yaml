@@ -1,0 +1,4 @@
+interface:
+  display_name: "Redis Workers Cache"
+  short_description: "Use the repo Redis cache, BullMQ queues, and worker patterns."
+  default_prompt: "Use the Redis workers cache skill for this repo and follow its package, env, Docker, and validation patterns."

@@ -1,0 +1,8 @@
+{
+  "name": "@saasweave/vite-plus",
+  "private": true,
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,45 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+**/project.inlang/cache
+**/project.inlang/project_id
+.env
+.env.docker
+*.local
+tmp
+.uploads
+**/playwright-report/
+**/test-results/
+**/coverage/
+
+# Internal planning and audit working papers (kept locally, never published)
+docs/.codex-*
+docs/*AUDIT*.md
+docs/FULL-AUDIT-*.md
+docs/ROADMAP.md
+docs/FEATURE-BACKLOG.md
+docs/plans/
+docs/capacity/*REPORT*.md
+**/.output/
+**/.nitro/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

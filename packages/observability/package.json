@@ -1,0 +1,27 @@
+{
+  "name": "@saasweave/observability",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./hono": "./src/hono/middleware.ts",
+    "./metrics": "./src/metrics.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/env": "workspace:*",
+    "hono": "catalog:",
+    "prom-client": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

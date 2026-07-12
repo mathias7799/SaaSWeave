@@ -1,0 +1,26 @@
+{
+  "name": "@saasweave/cache",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/env": "workspace:*",
+    "@saasweave/logger": "workspace:*",
+    "@saasweave/observability": "workspace:*",
+    "ioredis": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

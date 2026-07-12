@@ -1,0 +1,265 @@
+name: saasweave
+
+x-app-env: &app-env
+  VITE_SERVER_URL: ${SERVICE_URL_SERVER}
+  VITE_WEB_URL: ${SERVICE_URL_WEB}
+  DATABASE_URL: postgresql://${SERVICE_USER_POSTGRESQL}:${SERVICE_PASSWORD_POSTGRESQL}@postgres:5432/${POSTGRES_DB:-saasweave}
+  BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET in your environment (vp run auth:secret)}
+  NODE_ENV: production
+  SOURCE_COMMIT: ${SOURCE_COMMIT:-}
+
+x-production-container: &production-container
+  init: true
+  read_only: true
+  tmpfs:
+    - /tmp:size=64M,mode=1777,noexec
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+  deploy:
+    resources:
+      limits:
+        cpus: "2.0"
+        memory: 1536M
+        pids: 512
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "5"
+
+x-server-env: &server-env
+  <<: *app-env
+  ENABLE_OPEN_API_DOCS: ${ENABLE_OPEN_API_DOCS:-false}
+  PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:-}
+  REDIS_URL: redis://redis:6379/0
+  CACHE_PREFIX: ${CACHE_PREFIX:-saasweave}
+  CACHE_DEFAULT_TTL_SECONDS: ${CACHE_DEFAULT_TTL_SECONDS:-300}
+  QUEUE_PREFIX: ${QUEUE_PREFIX:-saasweave}
+  WORKER_CONCURRENCY: ${WORKER_CONCURRENCY:-5}
+  STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+  STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+  STRIPE_PRICES: ${STRIPE_PRICES:-{}}
+  STRIPE_METERS: ${STRIPE_METERS:-{}}
+  MAIL_PROVIDER: ${MAIL_PROVIDER:-console}
+  MAIL_FROM: ${MAIL_FROM:-SaaSWeave <hello@saasweave.io>}
+  RESEND_API_KEY: ${RESEND_API_KEY:-}
+  SMTP_URL: ${SMTP_URL:-}
+  GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+  GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+  GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+  GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+  MINIO_ENDPOINT: http://minio:9000
+  MINIO_BUCKET: ${MINIO_BUCKET:-uploads}
+  MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID:?Set MINIO_ACCESS_KEY_ID}
+  MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY:?Set MINIO_SECRET_ACCESS_KEY}
+  MINIO_PUBLIC_BASE_URL: ${MINIO_PUBLIC_BASE_URL:-}
+  MEDIA_UPLOAD_DIR: ${MEDIA_UPLOAD_DIR:-.uploads}
+  MEDIA_PUBLIC_BASE_URL: ${MEDIA_PUBLIC_BASE_URL:-}
+  WORKER_SCHEDULE_INVITATION_CRON: ${WORKER_SCHEDULE_INVITATION_CRON:-0 3 * * *}
+  WORKER_SCHEDULE_DATA_RETENTION_CRON: ${WORKER_SCHEDULE_DATA_RETENTION_CRON:-0 5 * * *}
+  WORKER_HEALTH_PORT: ${WORKER_HEALTH_PORT:-9100}
+  METRICS_ENABLED: ${METRICS_ENABLED:-false}
+  METRICS_BEARER_TOKEN: ${METRICS_BEARER_TOKEN:-}
+  OTEL_TRACE_SAMPLE_RATE: ${OTEL_TRACE_SAMPLE_RATE:-0.1}
+  RETENTION_PURGE_DRY_RUN: ${RETENTION_PURGE_DRY_RUN:-false}
+  RETENTION_LEGAL_HOLD_ORG_IDS: ${RETENTION_LEGAL_HOLD_ORG_IDS:-}
+  REQUIRE_EMAIL_VERIFICATION: ${REQUIRE_EMAIL_VERIFICATION:-true}
+  SECURITY_HEADERS_ENABLED: ${SECURITY_HEADERS_ENABLED:-true}
+  SECURITY_CSP_REPORT_ONLY: ${SECURITY_CSP_REPORT_ONLY:-false}
+  SECURITY_CSP_REPORT_URI: ${SECURITY_CSP_REPORT_URI:-}
+
+services:
+  migrate:
+    container_name: saasweave-migrate
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      target: migrator
+    environment:
+      <<: *app-env
+    exclude_from_hc: true
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  server:
+    container_name: saasweave-server
+    restart: unless-stopped
+    <<: *production-container
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+      args:
+        SOURCE_COMMIT: ${SOURCE_COMMIT:-}
+        VITE_SERVER_URL: ${SERVICE_URL_SERVER}
+        VITE_WEB_URL: ${SERVICE_URL_WEB}
+    environment:
+      SERVICE_URL_SERVER_5000:
+      <<: *server-env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1:5000$(echo $SERVICE_URL_SERVER | sed 's|^http[s]*://[^/]*||' | sed 's|/$||')/health/ready || exit 1"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  web:
+    container_name: saasweave-web
+    restart: unless-stopped
+    <<: *production-container
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        SOURCE_COMMIT: ${SOURCE_COMMIT:-}
+        VITE_SERVER_URL: ${SERVICE_URL_SERVER}
+        VITE_WEB_URL: ${SERVICE_URL_WEB}
+        VITE_IMGPROXY_URL: ${VITE_IMGPROXY_URL:-}
+        VITE_IMGPROXY_SIGNATURE: ${VITE_IMGPROXY_SIGNATURE:-_}
+    environment:
+      SERVICE_URL_WEB_3000:
+      # Web SSR runs the API in-process (in-process oRPC), so it needs the same
+      # runtime env as the server — including REDIS_URL (required in production).
+      <<: *server-env
+      VITE_IMGPROXY_URL: ${VITE_IMGPROXY_URL:-}
+      VITE_IMGPROXY_SIGNATURE: ${VITE_IMGPROXY_SIGNATURE:-_}
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1:3000$(echo $SERVICE_URL_WEB | sed 's|^http[s]*://[^/]*||' | sed 's|/$||')/_api/health/live || exit 1"
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    depends_on:
+      server:
+        condition: service_healthy
+
+  worker:
+    container_name: saasweave-worker
+    restart: unless-stopped
+    <<: *production-container
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+      args:
+        SOURCE_COMMIT: ${SOURCE_COMMIT:-}
+        VITE_SERVER_URL: ${SERVICE_URL_SERVER}
+        VITE_WEB_URL: ${SERVICE_URL_WEB}
+    environment:
+      <<: *server-env
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1:${WORKER_HEALTH_PORT:-9100}/health/ready || exit 1"
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 45s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: saasweave-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY_ID:?Set MINIO_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_ACCESS_KEY:?Set MINIO_SECRET_ACCESS_KEY}
+    volumes:
+      - saasweave-minio-data:/data
+
+  minio-init:
+    image: minio/mc:RELEASE.2025-04-16T18-13-26Z
+    container_name: saasweave-minio-init
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD; do sleep 1; done;
+      mc mb -p local/$$MINIO_BUCKET || true;
+      mc anonymous set download local/$$MINIO_BUCKET/avatar || true;
+      exit 0;
+      "
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY_ID:?Set MINIO_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_ACCESS_KEY:?Set MINIO_SECRET_ACCESS_KEY}
+      MINIO_BUCKET: ${MINIO_BUCKET:-uploads}
+    restart: "no"
+
+  imgproxy:
+    image: darthsim/imgproxy:v3.28.0
+    container_name: saasweave-imgproxy
+    restart: unless-stopped
+    environment:
+      IMGPROXY_BIND: ":8080"
+      IMGPROXY_USE_ETAG: "true"
+      IMGPROXY_ENABLE_WEBP_DETECTION: "true"
+      IMGPROXY_ALLOW_INSECURE: "1"
+      # Restrict which origins imgproxy will fetch from so it cannot be abused as
+      # an open proxy / SSRF probe into the internal network or cloud metadata.
+      # URL signing is not usable here (client SPA cannot hold the signing key),
+      # so source allow-listing is the enforced control. Set MINIO_PUBLIC_BASE_URL.
+      IMGPROXY_ALLOWED_SOURCES: "${MINIO_PUBLIC_BASE_URL:-http://minio:9000/},${SERVICE_URL_WEB}/"
+
+  postgres:
+    image: postgres:18-alpine
+    container_name: saasweave-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${SERVICE_USER_POSTGRESQL}
+      POSTGRES_PASSWORD: ${SERVICE_PASSWORD_POSTGRESQL}
+      POSTGRES_DB: ${POSTGRES_DB:-saasweave}
+    volumes:
+      - saasweave-pg-data:/var/lib/postgresql
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"
+      interval: 5s
+      timeout: 20s
+      retries: 10
+
+  redis:
+    image: redis:8-alpine
+    container_name: saasweave-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - saasweave-redis-data:/data
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  saasweave-pg-data:
+  saasweave-redis-data:
+  saasweave-minio-data:

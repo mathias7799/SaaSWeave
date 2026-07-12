@@ -1,0 +1,9 @@
+{
+  "extends": "@saasweave/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "outDir": "dist"
+  }
+}

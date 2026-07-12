@@ -1,0 +1,14 @@
+@import "@saasweave/ui/styles/globals.css";
+@source "./";
+
+@import "./fonts.css";
+@import "./theme.css";
+
+:root {
+  /**
+    * Adjust this according to your navbar height.
+    * It's used to calculate the correct height for the main content area
+    * and offsetting the content to center it vertically when using <CenteredLayout>
+    */
+  --navbar-height: 68px;
+}

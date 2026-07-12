@@ -1,0 +1,133 @@
+import process from "node:process";
+
+import { z } from "zod";
+
+import { checkRedisReady } from "@saasweave/cache";
+import {
+  HealthChecksSchema,
+  HealthLiveOutputSchema,
+  HealthReadyOutputSchema,
+  type HealthCheckResult,
+  type HealthStatus
+} from "@saasweave/core/health";
+import { checkIsDbReady } from "@saasweave/db";
+import { ENV_SERVER } from "@saasweave/env/server/env";
+import { checkQueueReady } from "@saasweave/jobs/queues";
+
+import { publicProcedure } from "#@/lib/procedures/factory";
+
+// #region Config
+
+const HEALTHCHECK_TIMEOUT_MS = 1_500;
+
+// #region Utils
+
+function getErrorMessage(error: unknown): string {
+  if (error instanceof Error) return error.message;
+  return "Unknown error";
+}
+
+async function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => reject(new Error(`Timed out after ${timeoutMs}ms`)), timeoutMs);
+  });
+  try {
+    return await Promise.race([promise, timeout]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+}
+
+async function runCheck(check: () => Promise<object>): Promise<HealthCheckResult> {
+  const startedAt = performance.now();
+  try {
+    const data = await withTimeout(check(), HEALTHCHECK_TIMEOUT_MS);
+    const latencyMs = Math.round(performance.now() - startedAt);
+    const result = data as { status?: HealthStatus };
+    if (result.status === "unhealthy") return { ...data, latencyMs, status: "unhealthy" };
+    return { ...data, latencyMs, status: "healthy" };
+  } catch (error) {
+    return {
+      error: getErrorMessage(error),
+      latencyMs: Math.round(performance.now() - startedAt),
+      status: "unhealthy"
+    };
+  }
+}
+
+function buildBaseHealth() {
+  return {
+    buildSha: ENV_SERVER.SOURCE_COMMIT,
+    environment: ENV_SERVER.NODE_ENV,
+    timestamp: new Date().toISOString(),
+    uptimeMs: Math.floor(process.uptime() * 1000),
+    url: ENV_SERVER.VITE_SERVER_URL
+  };
+}
+
+// #region Service Checks
+async function checkDatabase() {
+  const isReady = await checkIsDbReady();
+  return { status: isReady ? "healthy" : "unhealthy" };
+}
+
+const serviceChecks = {
+  database: checkDatabase,
+  queues: checkQueueReady,
+  redis: checkRedisReady
+} satisfies Record<string, () => Promise<object>>;
+
+// #region Router
+
+export const healthRouter = {
+  live: publicProcedure
+    .route({
+      description: "Check if the server is alive",
+      method: "GET",
+      spec: (spec) => {
+        return { ...spec, security: [] };
+      }
+    })
+    .errors({})
+    .output(HealthLiveOutputSchema)
+    .handler(() => {
+      return { status: "healthy", ...buildBaseHealth() };
+    }),
+  ready: publicProcedure
+    .route({
+      description:
+        "Check if the server is ready to handle requests and connect to external services",
+      method: "GET",
+      spec: (spec) => {
+        return { ...spec, security: [] };
+      }
+    })
+    .errors({
+      SERVICE_UNAVAILABLE: {
+        data: z.object({
+          checks: HealthChecksSchema
+        }),
+        description: "One or more services are unhealthy",
+        status: 503
+      }
+    })
+    .output(HealthReadyOutputSchema)
+    .handler(async ({ errors }) => {
+      const entries = await Promise.all(
+        Object.entries(serviceChecks).map(async ([name, check]) => [name, await runCheck(check)])
+      );
+      const checks = Object.fromEntries(entries) as Record<string, HealthCheckResult>;
+      const allHealthy = Object.values(checks).every((r) => r.status === "healthy");
+
+      if (!allHealthy) {
+        throw errors.SERVICE_UNAVAILABLE({ data: { checks } });
+      }
+
+      return {
+        status: "healthy" as const,
+        ...buildBaseHealth(),
+        checks
+      };
+    })
+};

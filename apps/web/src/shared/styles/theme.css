@@ -1,0 +1,77 @@
+@import "@saasweave/ui/styles/theme-inline.css";
+@import "@saasweave/ui/styles/theme-semantic.css";
+
+:root {
+  --base-50: oklch(0.991 0.0016 54.37);
+  --base-100: oklch(0.9753 0.0032 55.37);
+  --base-200: oklch(0.9274 0.0063 55.66);
+  --base-300: oklch(0.8725 0.0095 56.31);
+  --base-400: oklch(0.7114 0.0113 56.21);
+  --base-500: oklch(0.5545 0.0123 58.02);
+  --base-600: oklch(0.4449 0.012 59.58);
+  --base-700: oklch(0.3745 0.011 58.5);
+  --base-800: oklch(0.2682 0.0095 56.24);
+  --base-900: oklch(0.194 0.0063 55.99);
+  --base-950: oklch(0.1471 0.0047 54.2);
+  --base-1000: oklch(0.1021 0.0032 54.78);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --ring: var(--base-950);
+
+  /* SaaSWeave signal accent — a warm burnt orange tuned to the warm neutral base.
+     Ink stays the primary; brand is reserved for emphasis, active state, and
+     the lead data series. */
+  --brand: oklch(0.646 0.196 41.5);
+  --brand-foreground: oklch(0.985 0.006 55);
+  --brand-subtle: oklch(0.957 0.028 56);
+  --brand-border: oklch(0.885 0.055 52);
+
+  /* Duotone charts: brand + ink. Legible side by side, colour-blind safe. */
+  --chart-1: var(--brand);
+  --chart-2: var(--base-900);
+  --chart-3: oklch(0.78 0.115 52);
+  --chart-4: var(--base-500);
+  --chart-5: var(--base-300);
+  --radius: 0.625rem;
+  --sidebar-ring: var(--base-950);
+}
+
+.dark {
+  --background: var(--base-950);
+  --foreground: var(--base-200);
+  --card: var(--base-950);
+  --card-foreground: var(--base-200);
+  --popover: var(--base-950);
+  --popover-foreground: var(--base-200);
+  --primary: var(--base-50);
+  --primary-foreground: var(--base-900);
+  --secondary: var(--base-800);
+  --secondary-foreground: var(--base-200);
+  --muted: var(--base-900);
+  --muted-foreground: var(--base-400);
+  --accent: var(--base-900);
+  --accent-foreground: var(--base-200);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--base-800);
+  --input: var(--base-700);
+  --ring: var(--base-50);
+
+  --brand: oklch(0.705 0.178 45);
+  --brand-foreground: oklch(0.16 0.02 50);
+  --brand-subtle: oklch(0.29 0.055 48);
+  --brand-border: oklch(0.42 0.09 47);
+
+  --chart-1: var(--brand);
+  --chart-2: var(--base-200);
+  --chart-3: oklch(0.62 0.13 50);
+  --chart-4: var(--base-400);
+  --chart-5: var(--base-600);
+  --sidebar: var(--base-900);
+  --sidebar-foreground: var(--base-200);
+  --sidebar-primary: var(--base-50);
+  --sidebar-primary-foreground: var(--base-900);
+  --sidebar-accent: var(--base-800);
+  --sidebar-accent-foreground: var(--base-200);
+  --sidebar-border: var(--base-800);
+  --sidebar-ring: var(--base-50);
+}

@@ -1,0 +1,56 @@
+{
+  "description": "SPDX identifiers allowed in production dependency trees. CI license gate uses this list.",
+  "allowed": [
+    "0BSD",
+    "Apache-2.0",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BlueOak-1.0.0",
+    "CC0-1.0",
+    "CC-BY-3.0",
+    "CC-BY-4.0",
+    "ISC",
+    "LGPL-3.0-or-later",
+    "MIT",
+    "MIT-0",
+    "MPL-2.0",
+    "OFL-1.1",
+    "Python-2.0",
+    "Unlicense",
+    "WTFPL"
+  ],
+  "documentedExceptions": [
+    {
+      "package": "@paper-design/shaders",
+      "spdx": "Apache-2.0",
+      "note": "npm registry license field is Apache-2.0; pnpm licenses reports Unknown due to missing package.json license metadata in the published tarball. Documented in docs/LICENSE-POLICY.md."
+    },
+    {
+      "package": "@paper-design/shaders-react",
+      "spdx": "Apache-2.0",
+      "note": "Same as @paper-design/shaders."
+    }
+  ],
+  "copyleftAttributions": [
+    {
+      "package": "@img/sharp-libvips-linux-x64",
+      "copyrightHolder": "Lovell Fuller and libvips contributors",
+      "licenseTextUrl": "https://www.gnu.org/licenses/lgpl-3.0.html"
+    },
+    {
+      "package": "lightningcss",
+      "copyrightHolder": "Parcel contributors",
+      "licenseTextUrl": "https://www.mozilla.org/MPL/2.0/"
+    },
+    {
+      "package": "lightningcss-linux-x64-gnu",
+      "copyrightHolder": "Parcel contributors",
+      "licenseTextUrl": "https://www.mozilla.org/MPL/2.0/"
+    }
+  ],
+  "lgplMplPolicy": {
+    "summary": "LGPL/MPL packages are permitted only as dynamically linked dependencies with NOTICE attribution. No static bundling of copyleft libraries without legal review.",
+    "reviewBy": "2026-10-01",
+    "owner": "platform"
+  }
+}

@@ -1,0 +1,120 @@
+name: Security
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  codeql:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript-typescript
+      - uses: github/codeql-action/analyze@v3
+
+  supply-chain:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.3.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lockfile dedupe check
+        run: |
+          pnpm dedupe --check
+          echo "Lockfile dedupe check passed."
+
+      - name: Production dependency audit
+        run: |
+          set +e
+          pnpm audit --prod --json > /tmp/audit.json
+          set -e
+          node scripts/ci/audit-allowlist-check.mjs /tmp/audit.json
+
+      - name: Framework exception expiry gate
+        run: node scripts/ci/framework-exceptions-check.mjs
+
+      - name: License gate
+        run: node scripts/ci/license-gate.mjs
+
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          pnpm dlx @cyclonedx/cyclonedx-npm@6.0.0 \
+            --omit dev \
+            --output-file sbom.cdx.json \
+            --spec-version 1.5
+          test -s sbom.cdx.json
+
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom-cyclonedx
+          path: sbom.cdx.json
+          retention-days: 30
+
+      - name: Generate NOTICE
+        run: |
+          node scripts/ci/generate-notice.mjs
+          git diff --exit-code -- NOTICE
+
+  container-scan:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [server, web, worker]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build production image
+        run: |
+          docker build \
+            -f apps/${{ matrix.app }}/Dockerfile \
+            --target production \
+            -t saasweave-${{ matrix.app }}:ci \
+            --build-arg SOURCE_COMMIT=${{ github.sha }} \
+            --build-arg VITE_SERVER_URL=http://localhost:5000/server \
+            --build-arg VITE_WEB_URL=http://localhost:3000 \
+            .
+
+      - name: Image secret scan
+        run: node scripts/ci/docker-image-secret-scan.mjs saasweave-${{ matrix.app }}:ci
+
+      - name: Trivy image scan (HIGH/CRITICAL blocking)
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: saasweave-${{ matrix.app }}:ci
+          format: table
+          exit-code: 1
+          severity: HIGH,CRITICAL
+          ignore-unfixed: false

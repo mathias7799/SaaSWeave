@@ -1,0 +1,44 @@
+{
+  "name": "@saasweave/auth",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    "./index": "./src/index.ts",
+    "./list-sessions": "./src/list-sessions.ts",
+    "./public-providers": "./src/public-providers.ts",
+    "./provision-workspace": "./src/provision-workspace.ts",
+    "./react/auth-client": "./src/react/auth-client.ts",
+    "./react/impersonation": "./src/react/impersonation.ts",
+    "./react/tanstack-start/hooks": "./src/react/tanstack-start/hooks.ts",
+    "./react/tanstack-start/middleware": "./src/react/tanstack-start/middleware.ts",
+    "./react/tanstack-start/queries": "./src/react/tanstack-start/queries.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@better-auth/drizzle-adapter": "catalog:",
+    "@better-auth/sso": "catalog:",
+    "@saasweave/db": "workspace:*",
+    "@saasweave/env": "workspace:*",
+    "@saasweave/jobs": "workspace:*",
+    "@saasweave/observability": "workspace:*",
+    "better-auth": "catalog:",
+    "drizzle-orm": "catalog:",
+    "std-env": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "catalog:",
+    "@tanstack/react-start": "catalog:"
+  }
+}

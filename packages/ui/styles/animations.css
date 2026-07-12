@@ -1,0 +1,17 @@
+@theme inline {
+  @keyframes spinner-leaf-fade {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+@layer utilities {
+  .animate-spinner-leaf-fade {
+    animation: spinner-leaf-fade 800ms linear infinite;
+  }
+}

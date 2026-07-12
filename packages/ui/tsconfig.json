@@ -1,0 +1,10 @@
+{
+  "extends": "@saasweave/tsconfig/tsconfig.base.json",
+  "compilerOptions": {
+    "paths": {
+      "@saasweave/ui/*": ["./*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

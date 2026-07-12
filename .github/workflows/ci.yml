@@ -1,0 +1,249 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: ci
+          POSTGRES_PASSWORD: ci
+          POSTGRES_DB: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U ci -d ci"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      REDIS_URL: redis://localhost:6379/15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.3.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate i18n (Paraglide)
+        run: pnpm --filter @saasweave/i18n build
+
+      - name: Lint & typecheck
+        run: pnpm exec vp check
+
+      - name: Maintainability gate (warnings, dead code, duplication)
+        run: node scripts/ci/maintainability-gate.mjs
+
+      - name: Repository governance tests
+        run: pnpm exec vp test scripts/__tests__/*.test.ts
+
+      - name: Framework exception expiry gate
+        run: node scripts/ci/framework-exceptions-check.mjs
+
+      - name: Risk-based package coverage gate
+        run: node scripts/ci/coverage-gate.mjs
+        env:
+          NODE_ENV: development
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+
+      - name: Capacity smoke gate
+        run: node scripts/capacity/run-smoke.mjs
+        env:
+          CAPACITY_REPORT_PATH: /tmp/capacity-smoke-report.md
+          NODE_ENV: development
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+
+      - name: Workspace build
+        run: pnpm exec vp run build
+        env:
+          NODE_ENV: development
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+          VITE_SERVER_URL: http://localhost:5000/server
+          VITE_WEB_URL: http://localhost:3000
+
+      - name: Unit tests
+        run: pnpm exec vp run -r test:unit
+        env:
+          NODE_ENV: development
+          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
+          BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+
+      - name: Validate compose configurations
+        run: pnpm run ops:compose-validate
+
+      # Blocking gate: fail on production advisories not listed in audit-allowlist.json.
+      # pnpm audit exits non-zero when any advisory exists, so capture JSON regardless of exit code.
+      - name: Dependency audit (allowlisted)
+        run: |
+          set +e
+          pnpm audit --prod --json > /tmp/audit.json
+          set -e
+          node scripts/ci/audit-allowlist-check.mjs /tmp/audit.json
+
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: changeme
+          POSTGRES_DB: saasweave_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d saasweave_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://postgres:changeme@localhost:5432/saasweave_test
+      REDIS_URL: redis://localhost:6379/1
+      BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.3.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate i18n (Paraglide)
+        run: pnpm --filter @saasweave/i18n build
+
+      - name: Run database migrations
+        run: pnpm exec tsx packages/db/src/migrate-cli.ts
+
+      - name: Integration tests (api + db, real Postgres/Redis)
+        run: pnpm --filter @saasweave/api --filter @saasweave/db run test:integration
+
+      - name: Backup and restore integrity gate
+        run: |
+          docker run --rm --network host \
+            -e DATABASE_URL \
+            -v "$PWD:/workspace" \
+            -w /workspace \
+            postgres:18-bookworm@sha256:d9c83446333daec3f0588cc709adb80c26090b7f9f0f7ec8d43c243385d79818 \
+            bash -ec 'apt-get update -qq && apt-get install -y -qq nodejs >/dev/null && node scripts/ops/backup-restore-verify.mjs'
+
+  playwright:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: changeme
+          POSTGRES_DB: saasweave_e2e
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d saasweave_e2e"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+      redis:
+        image: redis:8-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      NODE_ENV: development
+      CI: true
+      DATABASE_URL: postgresql://postgres:changeme@localhost:5432/saasweave_e2e
+      REDIS_URL: redis://localhost:6379/2
+      BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
+      VITE_SERVER_URL: http://127.0.0.1:5000/server
+      VITE_WEB_URL: http://127.0.0.1:3000
+      E2E_BASE_URL: http://127.0.0.1:3000
+      E2E_SERVER_URL: http://127.0.0.1:5000/server
+      REQUIRE_EMAIL_VERIFICATION: "false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.3.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate i18n (Paraglide)
+        run: pnpm --filter @saasweave/i18n build
+
+      - name: Run database migrations
+        run: pnpm exec tsx packages/db/src/migrate-cli.ts
+
+      - name: Install Playwright Chromium
+        run: pnpm --filter @saasweave/web exec playwright install --with-deps chromium
+
+      - name: Playwright auth and console smoke (Chromium)
+        run: pnpm --filter @saasweave/web run test:e2e:pw:ci
+
+      - name: Upload Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report/
+          retention-days: 7
+
+      - name: Upload Playwright traces
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: apps/web/test-results/
+          retention-days: 7

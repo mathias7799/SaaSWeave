@@ -1,0 +1,5 @@
+{
+  "extends": "@saasweave/tsconfig/tsconfig.base.json",
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

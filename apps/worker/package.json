@@ -1,0 +1,36 @@
+{
+  "name": "@saasweave/worker",
+  "type": "module",
+  "main": "src/index.ts",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "cross-env NODE_ENV=production IS_BUILD=true vp pack",
+    "dev": "pnpm dotenvx run -f ../../packages/env/.env -- node --import tsx --watch src/index.ts",
+    "start": "pnpm dotenvx run -f ../../packages/env/.env -- node .output/index.mjs",
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/cache": "workspace:*",
+    "@saasweave/db": "workspace:*",
+    "@saasweave/env": "workspace:*",
+    "@saasweave/jobs": "workspace:*",
+    "@saasweave/logger": "workspace:*",
+    "@saasweave/observability": "workspace:*",
+    "bullmq": "catalog:",
+    "drizzle-orm": "catalog:"
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "catalog:",
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "cross-env": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

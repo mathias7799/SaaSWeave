@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
+  "timezone": "UTC",
+  "schedule": ["before 6am on Monday"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"]
+  },
+  "packageRules": [
+    {
+      "description": "Group safe patch/minor dev tooling",
+      "matchManagers": ["npm"],
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "groupName": "dev-dependencies (non-major)"
+    },
+    {
+      "description": "Framework pins — manual review",
+      "matchPackageNames": [
+        "better-auth",
+        "@better-auth/drizzle-adapter",
+        "@better-auth/sso",
+        "drizzle-orm",
+        "drizzle-kit",
+        "@tanstack/react-start",
+        "nitro",
+        "vite-plus",
+        "@voidzero-dev/vite-plus-core"
+      ],
+      "schedule": ["before 6am on the first day of the month"],
+      "labels": ["dependencies", "framework"]
+    },
+    {
+      "description": "Playwright browser stack",
+      "matchPackageNames": ["@playwright/test", "playwright"],
+      "groupName": "playwright",
+      "labels": ["dependencies", "e2e"]
+    },
+    {
+      "description": "AWS SDK via catalog",
+      "matchPackageNames": ["@aws-sdk/**"],
+      "groupName": "aws-sdk",
+      "labels": ["dependencies", "storage"]
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  }
+}

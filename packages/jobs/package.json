@@ -1,0 +1,46 @@
+{
+  "name": "@saasweave/jobs",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./dispatch": "./src/dispatch.ts",
+    "./queues": "./src/queues.ts",
+    "./schedules": "./src/schedules.ts",
+    "./maintenance": "./src/maintenance.ts",
+    "./retention": "./src/retention/index.ts",
+    "./queue-metrics": "./src/queue-metrics.ts",
+    "./worker-readiness": "./src/worker-readiness.ts",
+    "./webhook-dispatch": "./src/webhook-dispatch.ts",
+    "./stripe-webhook": "./src/stripe-webhook.ts",
+    "./data-export-job": "./src/data-export-job.ts",
+    "./worker": "./src/worker.ts",
+    "./domain-workers": "./src/domain-workers.ts",
+    "./schedule-worker": "./src/schedule-worker.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/app": "workspace:*",
+    "@saasweave/cache": "workspace:*",
+    "@saasweave/core": "workspace:*",
+    "@saasweave/db": "workspace:*",
+    "@saasweave/env": "workspace:*",
+    "@saasweave/logger": "workspace:*",
+    "@saasweave/mailer": "workspace:*",
+    "@saasweave/observability": "workspace:*",
+    "bullmq": "catalog:",
+    "drizzle-orm": "catalog:",
+    "ioredis": "catalog:",
+    "stripe": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:"
+  }
+}

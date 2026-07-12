@@ -1,0 +1,3 @@
+{
+  "extends": "@saasweave/tsconfig/tsconfig.base.json"
+}

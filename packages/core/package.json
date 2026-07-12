@@ -1,0 +1,38 @@
+{
+  "name": "@saasweave/core",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./api-keys": "./src/api-keys/index.ts",
+    "./assets": "./src/assets/index.ts",
+    "./audit": "./src/audit/index.ts",
+    "./security": "./src/security/index.ts",
+    "./features": "./src/features/index.ts",
+    "./media-asset": "./src/media-asset/index.ts",
+    "./health": "./src/health/index.ts",
+    "./retention": "./src/retention/index.ts",
+    "./ops/backup-safety": "./src/ops/backup-safety.ts",
+    "./plans": "./src/plans/index.ts",
+    "./webhooks": "./src/webhooks/index.ts",
+    "./batch-jobs/types": "./src/batch-jobs/types.ts",
+    "./batch-jobs/constants": "./src/batch-jobs/constants.ts",
+    "./data-export/constants": "./src/data-export/constants.ts",
+    "./data-export": "./src/data-export/index.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

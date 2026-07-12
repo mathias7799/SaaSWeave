@@ -1,0 +1,149 @@
+{
+  // use LF line endings
+  "files.eol": "\n",
+
+  // Terminal Suggestions
+  "terminal.integrated.suggest.enabled": true,
+  "terminal.integrated.shellIntegration.enabled": true,
+  "terminal.integrated.shellIntegration.environmentReporting": true,
+  "terminal.integrated.suggest.quickSuggestions": {
+    "commands": "on",
+    "arguments": "on",
+    "unknown": "off"
+  },
+
+  // Add back TypeScript IntelliSense autocomplete, see why this is necessary: https://github.com/microsoft/vscode/issues/315373#issuecomment-4499000535
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "off"
+  },
+
+  // Use tsgo for faster TypeScript and JavaScript language features
+  "js/ts.experimental.useTsgo": true,
+
+  // Use non-relative (absolute) imports by default
+  "js/ts.preferences.importModuleSpecifier": "non-relative",
+
+  // When auto-importing, prefer to include the file extension for JavaScript and TypeScript files
+  "js/ts.preferences.importModuleSpecifierEnding": "minimal",
+
+  // When a file is moved, update the imports to reflect the new location
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+
+  // When "Go to Definition" is triggered on a symbol, prefer going to the source file instead of the declaration file (if available).
+  "js/ts.preferGoToSourceDefinition": true,
+
+  // TanStack Start-specific settings
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "search.exclude": {
+    "**/routeTree.gen.ts": true,
+    "pnpm-lock.yaml": true
+  },
+  "files.readonlyInclude": {
+    "**/routeTree.gen.ts": true
+  },
+
+  // Vite Plus Defaults
+  "prettier.enable": false,
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "oxc.fmt.configPath": "./vite.config.ts",
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.format.oxc": "always",
+    "source.fixAll.oxc": "always"
+  },
+
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json5]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[handlebars]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[graphql]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[toml]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[mjml]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+
+  // Nest config files together in the explorer
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
+    "package.json": "LICENSE, package-lock.json, renovate.*, .npmrc, .fallowrc.jsonc, .node-version, pnpm*, components.json, commitlint*, .nvmrc, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, .gitignore, bun.lock",
+    "router.tsx": "routeTree.gen.ts",
+    "docker-compose.yaml": ".dockerignore, Dockerfile*, docker-compose.*.yaml, .env.docker*"
+  },
+
+  // Allow loading these json schemas
+  "json.schemas": [
+    {
+      "fileMatch": ["components.json"],
+      "url": "https://ui.shadcn.com/schema.json"
+    },
+    {
+      "fileMatch": ["packages/i18n/messages/*.json"],
+      "url": "https://inlang.com/schema/inlang-message-format"
+    },
+    {
+      "fileMatch": [".fallowrc.jsonc", ".fallowrc.json"],
+      "url": "https://raw.githubusercontent.com/fallow-rs/fallow/main/schema.json"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "name": "@saasweave/logger",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    "./client": "./src/client/index.ts",
+    "./server": "./src/server/index.ts",
+    "./server/tanstack-start/middleware": "./src/server/tanstack-start/middleware.ts",
+    "./server/hono/middleware": "./src/server/hono/middleware.ts",
+    "./server/ingest/sanitize": "./src/server/ingest/sanitize.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/core": "workspace:*",
+    "@tanstack/react-start": "catalog:",
+    "defu": "catalog:",
+    "evlog": "catalog:",
+    "hono": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

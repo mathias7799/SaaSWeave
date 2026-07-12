@@ -1,0 +1,41 @@
+{
+  "name": "@saasweave/db",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts",
+    "#@/outbound-http": "./src/outbound-http/index.ts"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema/index.ts",
+    "./stripe-webhook-ordering": "./src/stripe-webhook-ordering.ts"
+  },
+  "scripts": {
+    "migrate": "pnpm dotenvx run -f ../env/.env -- node --import tsx src/migrate-cli.ts",
+    "db": "pnpm dotenvx run -f ../env/.env -- drizzle-kit",
+    "db:dev:start": "docker compose -f docker-compose.dev.yaml up -d",
+    "db:dev:stop": "docker compose -f docker-compose.dev.yaml stop",
+    "auth:generate": "vp run -w auth:generate",
+    "test:integration": "VITEST_INTEGRATION=1 vp test",
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@saasweave/core": "workspace:*",
+    "@saasweave/env": "workspace:*",
+    "@saasweave/logger": "workspace:*",
+    "@saasweave/observability": "workspace:*",
+    "drizzle-orm": "catalog:",
+    "postgres": "catalog:"
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "catalog:",
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "drizzle-kit": "catalog:",
+    "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@tanstack/react-start": "catalog:"
+  }
+}

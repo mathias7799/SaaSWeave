@@ -1,0 +1,30 @@
+{
+  "name": "@saasweave/env",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    "./server/env": "./src/server/env.ts",
+    "./server/auth-secret": "./src/server/auth-secret.ts",
+    "./server/production-guards": "./src/server/production-guards.ts",
+    "./web/env.isomorphic": "./src/web/env.isomorphic.ts",
+    "./web/env.server": "./src/web/env.server.ts"
+  },
+  "scripts": {
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@t3-oss/env-core": "catalog:",
+    "std-env": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

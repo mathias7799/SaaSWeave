@@ -1,0 +1,59 @@
+{
+  "name": "@saasweave/ui",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./components/alert-dialog": "./components/alert-dialog.tsx",
+    "./components/avatar": "./components/avatar.tsx",
+    "./components/button": "./components/button.tsx",
+    "./components/checkbox": "./components/checkbox.tsx",
+    "./components/decor-icon": "./components/decor-icon.tsx",
+    "./components/dropdown-menu": "./components/dropdown-menu.tsx",
+    "./components/empty": "./components/empty.tsx",
+    "./components/field": "./components/field.tsx",
+    "./components/image": "./components/image.tsx",
+    "./components/input": "./components/input.tsx",
+    "./components/label": "./components/label.tsx",
+    "./components/portal": "./components/portal.tsx",
+    "./components/separator": "./components/separator.tsx",
+    "./components/sheet": "./components/sheet.tsx",
+    "./components/skeleton": "./components/skeleton.tsx",
+    "./components/sonner": "./components/sonner.tsx",
+    "./components/spinner": "./components/spinner.tsx",
+    "./hooks/use-is-client.hook": "./hooks/use-is-client.hook.ts",
+    "./hooks/use-scroll.hook": "./hooks/use-scroll.hook.ts",
+    "./lib/utils": "./lib/utils.ts",
+    "./styles/globals.css": "./styles/globals.css",
+    "./styles/theme-semantic.css": "./styles/theme-semantic.css",
+    "./styles/theme-inline.css": "./styles/theme-inline.css"
+  },
+  "scripts": {
+    "ui": "vpx shadcn@latest",
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@lonik/oh-image": "catalog:",
+    "class-variance-authority": "catalog:",
+    "clsx": "catalog:",
+    "lucide-react": "catalog:",
+    "next-themes": "catalog:",
+    "radix-ui": "catalog:",
+    "sonner": "catalog:",
+    "std-env": "catalog:",
+    "tailwind-merge": "catalog:",
+    "tw-animate-css": "catalog:"
+  },
+  "devDependencies": {
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  }
+}

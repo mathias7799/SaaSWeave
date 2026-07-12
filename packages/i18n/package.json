@@ -1,0 +1,38 @@
+{
+  "name": "@saasweave/i18n",
+  "type": "module",
+  "imports": {
+    "#@/paraglide/*": "./src/paraglide/*.js",
+    "#@/*": "./src/*.ts"
+  },
+  "exports": {
+    "./messages": "./src/paraglide/messages.js",
+    "./runtime": "./src/paraglide/runtime.js",
+    "./server": "./src/paraglide/server.js",
+    "./vite/plugin": "./src/vite/plugin.js",
+    "./tanstack-start/*": "./src/tanstack-start/*.ts",
+    "./tanstack-start/components/locale-provider": "./src/tanstack-start/components/locale-provider.tsx",
+    "./tanstack-start/components/link": "./src/tanstack-start/components/link.tsx",
+    "./tanstack-start/types": "./src/tanstack-start/types/index.ts"
+  },
+  "scripts": {
+    "build": "paraglide-js compile --project ./project.inlang --outdir ./src/paraglide",
+    "dev": "paraglide-js compile --watch --project ./project.inlang --outdir ./src/paraglide",
+    "machine-translate": "inlang machine translate --project project.inlang",
+    "test:unit": "vp test"
+  },
+  "dependencies": {
+    "@tanstack/react-router": "catalog:",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@inlang/cli": "catalog:",
+    "@inlang/paraglide-js": "catalog:",
+    "@saasweave/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

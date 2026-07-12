@@ -1,0 +1,56 @@
+{
+  "name": "saasweave",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "vp check",
+    "fix": "vp check --fix",
+    "test:unit:run": "pnpm dotenvx run -f ./packages/env/.env -- sh -c 'if [ \"${SKIP_REDIS_UNIT_TESTS:-}\" = 1 ]; then export REDIS_URL=; export SKIP_REDIS_UNIT_TESTS=1; elif [ -n \"${REDIS_URL}\" ]; then export REDIS_URL=redis://localhost:6379/15; fi; if [ -z \"${QUEUE_PREFIX:-}\" ] || [ \"${QUEUE_PREFIX}\" = \"saasweave\" ]; then export QUEUE_PREFIX=vitest-$$-$RANDOM; fi; exec vp run -r test:unit'",
+    "test:capacity:smoke": "rtk pnpm dotenvx run -f ./packages/env/.env -- node scripts/capacity/run-smoke.mjs",
+    "test:e2e:run": "pnpm dotenvx run -f ./packages/env/.env -- vp run -r test:e2e",
+    "dev": "pnpm -r --parallel dev",
+    "build": "vp run -r build",
+    "prepare": "vp config",
+    "deps": "vpx taze@latest -Ilwr --maturity-period 3",
+    "deps:major": "vpx taze@latest major -Ilwr --maturity-period 3",
+    "fallow": "vpx fallow --skip health",
+    "maintainability": "node scripts/ci/maintainability-gate.mjs",
+    "coverage:gate": "node scripts/ci/coverage-gate.mjs",
+    "tanstack": "vpx @tanstack/cli@latest",
+    "db": "vp run --filter @saasweave/db db",
+    "db:dev:start": "vp run --filter @saasweave/db db:dev:start",
+    "db:dev:stop": "vp run --filter @saasweave/db db:dev:stop",
+    "db:push": "vp run -w db push",
+    "db:generate": "vp run -w db generate",
+    "db:migrate": "vp run -w db migrate",
+    "db:studio": "vp run -w db studio",
+    "docker:up": "pnpm dotenvx run -f .env.docker -- docker compose up",
+    "docker:up:build": "pnpm dotenvx run -f .env.docker -- docker compose up --build",
+    "docker:down": "pnpm dotenvx run -f .env.docker -- docker compose down",
+    "ops:compose-validate": "bash scripts/ops/compose-validate.sh",
+    "ops:backup-verify": "node scripts/ops/backup-restore-verify.mjs",
+    "ops:backup-verify:docker": "bash scripts/ops/backup-restore-verify-docker.sh",
+    "ui": "vp run --filter @saasweave/ui ui",
+    "ui:web": "vp run --filter @saasweave/web ui",
+    "auth:secret": "vpx auth@latest secret",
+    "auth:generate": "vp run --filter @saasweave/db auth:generate"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "catalog:",
+    "@commitlint/config-conventional": "catalog:",
+    "@dotenvx/dotenvx": "catalog:",
+    "@tanstack/eslint-plugin-query": "catalog:",
+    "@tanstack/eslint-plugin-router": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint-plugin-fsd-lint": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "packageManager": "pnpm@11.3.0"
+}
