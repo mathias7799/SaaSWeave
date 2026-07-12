@@ -6,11 +6,11 @@ Node.js Hono server: oRPC API, Better Auth handler, Stripe webhooks, and media u
 
 - oRPC + OpenAPI (`/server/rpc`, `/server/docs` when enabled)
 - Better Auth at `/server/auth/*`
-- Health endpoints (`/health/live`, `/health/ready`)
+- Health endpoints (`/server/health/live`, `/server/health/ready`)
 - Maintenance mode middleware
 - Auth rate limiting
-- `GET /auth/providers` — public OAuth availability flags
-- Media routes at `/media/*` (local disk or MinIO presigned)
+- `GET /server/auth/providers` - public OAuth availability flags
+- Media routes at `/server/media/*` (local disk or MinIO presigned)
 
 ## Optional / env-gated
 

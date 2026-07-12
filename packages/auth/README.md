@@ -11,7 +11,8 @@ Better Auth configuration: sessions, organizations, admin plugin, 2FA, SSO, and 
 - Audit hooks → DB + outbound webhooks
 - Seat limit checks on invite/join
 - Signup policy (`assertSignupsOpen`)
-- Platform admin resolution (`PLATFORM_ADMIN_EMAILS` or first user)
+- Platform admin resolution (`PLATFORM_ADMIN_EMAILS` in production; first-user promotion in
+  development only)
 
 ## Optional plugins / env-gated
 

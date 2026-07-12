@@ -422,24 +422,6 @@ importers:
       '@paper-design/shaders-react':
         specifier: 'catalog:'
         version: 0.0.76(@types/react@19.2.17)(react@19.2.7)
-      '@tanstack/react-form':
-        specifier: 'catalog:'
-        version: 1.33.0(@tanstack/react-start@1.168.26(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@tanstack/react-query':
-        specifier: 'catalog:'
-        version: 5.101.0(react@19.2.7)
-      '@tanstack/react-query-persist-client':
-        specifier: 'catalog:'
-        version: 5.101.0(@tanstack/react-query@5.101.0(react@19.2.7))(react@19.2.7)
-      '@tanstack/react-router':
-        specifier: 'catalog:'
-        version: 1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@tanstack/react-router-ssr-query':
-        specifier: 'catalog:'
-        version: 1.167.1(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@19.2.7))(@tanstack/react-router@1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@tanstack/router-core@1.171.13)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       '@saasweave/api':
         specifier: workspace:*
         version: link:../../packages/api
@@ -464,6 +446,24 @@ importers:
       '@saasweave/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@tanstack/react-form':
+        specifier: 'catalog:'
+        version: 1.33.0(@tanstack/react-start@1.168.26(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.101.0(react@19.2.7)
+      '@tanstack/react-query-persist-client':
+        specifier: 'catalog:'
+        version: 5.101.0(@tanstack/react-query@5.101.0(react@19.2.7))(react@19.2.7)
+      '@tanstack/react-router':
+        specifier: 'catalog:'
+        version: 1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@tanstack/react-router-ssr-query':
+        specifier: 'catalog:'
+        version: 1.167.1(@tanstack/query-core@5.101.0)(@tanstack/react-query@5.101.0(react@19.2.7))(@tanstack/react-router@1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@tanstack/router-core@1.171.13)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       localforage:
         specifier: 'catalog:'
         version: 1.10.0
@@ -507,6 +507,9 @@ importers:
       '@rolldown/plugin-babel':
         specifier: 'catalog:'
         version: 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.29.7)(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))(rolldown@1.0.3)
+      '@saasweave/tsconfig':
+        specifier: workspace:*
+        version: link:../../tools/tsconfig
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.1(@voidzero-dev/vite-plus-core@0.2.4(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)(typescript@6.0.3))
@@ -528,9 +531,6 @@ importers:
       '@tanstack/react-router-devtools':
         specifier: 'catalog:'
         version: 1.167.0(@tanstack/react-router@1.170.16(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(@tanstack/router-core@1.171.13)(csstype@3.2.3)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-      '@saasweave/tsconfig':
-        specifier: workspace:*
-        version: link:../../tools/tsconfig
       '@types/babel__core':
         specifier: 'catalog:'
         version: 7.20.5
@@ -598,6 +598,9 @@ importers:
       '@dotenvx/dotenvx':
         specifier: 'catalog:'
         version: 2.4.1
+      '@saasweave/app':
+        specifier: workspace:*
+        version: link:../../packages/app
       '@saasweave/tsconfig':
         specifier: workspace:*
         version: link:../../tools/tsconfig
@@ -628,9 +631,6 @@ importers:
       '@orpc/tanstack-query':
         specifier: 'catalog:'
         version: 1.14.6(@opentelemetry/api@1.9.1)(@orpc/client@1.14.6(@opentelemetry/api@1.9.1))(@tanstack/query-core@5.101.0)
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       '@saasweave/app':
         specifier: workspace:*
         version: link:../app
@@ -658,6 +658,9 @@ importers:
       '@saasweave/mailer':
         specifier: workspace:*
         version: link:../mailer
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       drizzle-orm:
         specifier: 1.0.0-rc.4-5d5b77c
         version: 1.0.0-rc.4-5d5b77c(@opentelemetry/api@1.9.1)(postgres@3.4.9)(zod@4.4.3)
@@ -747,12 +750,6 @@ importers:
       '@better-auth/sso':
         specifier: 'catalog:'
         version: 1.7.0-rc.1(@better-auth/core@1.7.0-rc.1(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(@opentelemetry/api@1.9.1)(better-call@1.3.7(zod@4.4.3))(jose@6.2.3)(kysely@0.28.17)(nanostores@1.3.0))(@better-auth/utils@0.4.2)(@better-fetch/fetch@1.3.1)(better-auth@1.7.0-rc.1(@opentelemetry/api@1.9.1)(@tanstack/react-start@1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)))(drizzle-orm@1.0.0-rc.4-5d5b77c(@opentelemetry/api@1.9.1)(postgres@3.4.9)(zod@4.4.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(solid-js@1.9.13)(vitest@4.1.10))(better-call@1.3.7(zod@4.4.3))
-      '@tanstack/react-query':
-        specifier: 'catalog:'
-        version: 5.101.0(react@19.2.7)
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       '@saasweave/db':
         specifier: workspace:*
         version: link:../db
@@ -765,6 +762,12 @@ importers:
       '@saasweave/observability':
         specifier: workspace:*
         version: link:../observability
+      '@tanstack/react-query':
+        specifier: 'catalog:'
+        version: 5.101.0(react@19.2.7)
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       better-auth:
         specifier: 'catalog:'
         version: 1.7.0-rc.1(@opentelemetry/api@1.9.1)(@tanstack/react-start@1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4)))(drizzle-orm@1.0.0-rc.4-5d5b77c(@opentelemetry/api@1.9.1)(postgres@3.4.9)(zod@4.4.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(solid-js@1.9.13)(vitest@4.1.10)
@@ -840,9 +843,6 @@ importers:
 
   packages/db:
     dependencies:
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       '@saasweave/core':
         specifier: workspace:*
         version: link:../core
@@ -855,6 +855,9 @@ importers:
       '@saasweave/observability':
         specifier: workspace:*
         version: link:../observability
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       drizzle-orm:
         specifier: 1.0.0-rc.4-5d5b77c
         version: 1.0.0-rc.4-5d5b77c(@opentelemetry/api@1.9.1)(postgres@3.4.9)(zod@4.4.3)
@@ -991,12 +994,12 @@ importers:
 
   packages/logger:
     dependencies:
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       '@saasweave/core':
         specifier: workspace:*
         version: link:../core
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       defu:
         specifier: 'catalog:'
         version: 6.1.7
@@ -1022,15 +1025,15 @@ importers:
 
   packages/mailer:
     dependencies:
-      '@tanstack/react-start':
-        specifier: 'catalog:'
-        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       '@saasweave/env':
         specifier: workspace:*
         version: link:../env
       '@saasweave/logger':
         specifier: workspace:*
         version: link:../logger
+      '@tanstack/react-start':
+        specifier: 'catalog:'
+        version: 1.168.26(crossws@0.4.5(srvx@0.11.22))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(vite@8.0.16(@types/node@25.9.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.22.4))
       nodemailer:
         specifier: 'catalog:'
         version: 9.0.3

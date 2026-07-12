@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@dotenvx/dotenvx": "catalog:",
+    "@saasweave/app": "workspace:*",
     "@saasweave/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "cross-env": "catalog:",

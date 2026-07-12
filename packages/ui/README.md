@@ -11,7 +11,7 @@ shadcn/ui-based component library shared across the web app.
 ## Usage
 
 ```tsx
-import { Button } from "@saasweave/ui/button";
+import { Button } from "@saasweave/ui/components/button";
 ```
 
 ## Scripts

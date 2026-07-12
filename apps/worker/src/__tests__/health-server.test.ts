@@ -8,7 +8,13 @@ const startEventLoopLagMonitor = vi.fn();
 const logger = { info: vi.fn() };
 
 vi.mock("@saasweave/env/server/env", () => {
-  return { ENV_SERVER: { METRICS_ENABLED: true, WORKER_HEALTH_PORT: 9100 } };
+  return {
+    ENV_SERVER: {
+      METRICS_BEARER_TOKEN: "metrics-test-token-000000000000000",
+      METRICS_ENABLED: true,
+      WORKER_HEALTH_PORT: 9100
+    }
+  };
 });
 vi.mock("@saasweave/jobs/worker-readiness", () => {
   return { evaluateWorkerReadiness: (...args: unknown[]) => evaluateWorkerReadiness(...args) };
@@ -74,7 +80,13 @@ describe("worker health server", () => {
     expect(ready.status).toBe(200);
     expect(evaluateWorkerReadiness).toHaveBeenCalledOnce();
 
-    const metrics = await fetch(`${baseUrl}/metrics`);
+    const unauthorizedMetrics = await fetch(`${baseUrl}/metrics`);
+    expect(unauthorizedMetrics.status).toBe(401);
+    expect(unauthorizedMetrics.headers.get("www-authenticate")).toBe("Bearer");
+
+    const metrics = await fetch(`${baseUrl}/metrics`, {
+      headers: { Authorization: "Bearer metrics-test-token-000000000000000" }
+    });
     expect(metrics.status).toBe(200);
     await expect(metrics.text()).resolves.toBe("metric 1\n");
 

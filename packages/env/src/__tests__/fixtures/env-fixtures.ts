@@ -5,6 +5,7 @@ export const productionEnvBase = {
   DATABASE_URL: "postgresql://postgres:changeme@localhost:5432/saasweave",
   IS_BUILD: "false",
   NODE_ENV: "production",
+  PLATFORM_ADMIN_EMAILS: "admin@example.com",
   VITE_SERVER_URL: "http://localhost:5000/server",
   VITE_WEB_URL: "http://localhost:3000"
 } as const;

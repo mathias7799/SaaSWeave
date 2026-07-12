@@ -1,3 +1,4 @@
+import { createHash, timingSafeEqual } from "node:crypto";
 import { createServer, type Server } from "node:http";
 
 import { ENV_SERVER } from "@saasweave/env/server/env";
@@ -9,6 +10,14 @@ import { createLogger } from "@saasweave/logger/server";
 import { metricsHandler, startEventLoopLagMonitor } from "@saasweave/observability";
 
 const log = createLogger({ operation: "server__worker_health" });
+
+function hasValidMetricsToken(authorization: string | undefined): boolean {
+  const expected = ENV_SERVER.METRICS_BEARER_TOKEN;
+  if (!expected || !authorization?.startsWith("Bearer ")) return false;
+  const actualDigest = createHash("sha256").update(authorization.slice(7)).digest();
+  const expectedDigest = createHash("sha256").update(expected).digest();
+  return timingSafeEqual(actualDigest, expectedDigest);
+}
 
 export type WorkerHealthServerOptions = {
   getReadinessInput: () => WorkerReadinessInput;
@@ -46,6 +55,10 @@ export function createWorkerHealthServer(options: WorkerHealthServerOptions): Se
     }
 
     if (url === "/metrics" && ENV_SERVER.METRICS_ENABLED) {
+      if (!hasValidMetricsToken(req.headers.authorization)) {
+        res.writeHead(401, { "WWW-Authenticate": "Bearer" }).end();
+        return;
+      }
       const response = await metricsHandler();
       res.writeHead(response.status, Object.fromEntries(response.headers.entries()));
       res.end(Buffer.from(await response.arrayBuffer()));

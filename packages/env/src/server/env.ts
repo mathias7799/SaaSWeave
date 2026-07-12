@@ -35,7 +35,7 @@ export const ENV_SERVER = createEnv({
     ENABLE_OPEN_API_DOCS: z.stringbool().default(false),
     IS_BUILD: z.stringbool().default(false), // set to 'true' during build, can be used to conditionally disable features that should only run during runtime and not during build/prerendering
     // Comma-separated emails granted the platform-admin role on sign-up.
-    // Leave empty to fall back to "first registered user becomes admin".
+    // Production requires at least one; development may use first-user promotion.
     PLATFORM_ADMIN_EMAILS: z.string().default(""),
     // Redis powers shared cache and background queues. Leave empty to use
     // process-local cache only and disable queue producers/workers.

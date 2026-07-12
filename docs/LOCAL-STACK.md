@@ -46,7 +46,9 @@ Services:
 
 Copy [`.env.docker.example`](../.env.docker.example) to `.env.docker`. All variables are documented there.
 
-For native development (`vp run dev`), use [`packages/env/.env`](../packages/env/.env) from [`.env.example`](../packages/env/.env.example) instead.
+For native development (`pnpm run dev`), copy
+[`packages/env/.env.example`](../packages/env/.env.example) to the ignored
+`packages/env/.env` file.
 
 **Production Redis:** when `NODE_ENV=production`, `REDIS_URL` is required so cache and rate limits are shared across replicas. For intentional single-instance production deploys only, set `ALLOW_SINGLE_INSTANCE_FALLBACK=true` (documented in [`.env.docker.example`](../.env.docker.example)).
 
@@ -123,4 +125,3 @@ Full runbook (metadata URLs, console field values, demo user, manual login steps
 
 - [docs/README.md](./README.md) — per-package documentation
 - [docs/SSO-TESTING.md](./SSO-TESTING.md) — local SAML IdP runbook
-- [docs/AUDIT.md](./AUDIT.md) — platform feature audit

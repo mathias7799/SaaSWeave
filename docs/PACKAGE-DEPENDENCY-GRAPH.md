@@ -1,6 +1,6 @@
 # Package dependency graph
 
-Last updated: 2026-07-11 (Audit Remediation Prompt 8)
+Last updated: 2026-07-12
 
 This document is the canonical acyclic dependency graph for `@saasweave/*` packages and runnable apps. Arrows read as "depends on".
 
@@ -13,6 +13,9 @@ flowchart BT
   db["@saasweave/db"]
   cache["@saasweave/cache"]
   observability["@saasweave/observability"]
+  i18n["@saasweave/i18n"]
+  ui["@saasweave/ui"]
+  seo["@saasweave/seo"]
   app["@saasweave/app"]
   jobs["@saasweave/jobs"]
   auth["@saasweave/auth"]
@@ -31,13 +34,13 @@ flowchart BT
   cache --> env
   cache --> logger
   observability --> env
-  observability --> logger
 
   app --> core
   app --> db
   app --> cache
   app --> env
   app --> logger
+  app --> observability
 
   jobs --> app
   jobs --> core
@@ -50,9 +53,8 @@ flowchart BT
 
   auth --> db
   auth --> env
-  auth --> logger
-  auth --> mailer
   auth --> jobs
+  auth --> observability
 
   api --> app
   api --> auth
@@ -65,14 +67,19 @@ flowchart BT
   api --> jobs
 
   server --> api
+  server --> app
   server --> auth
+  server --> cache
   server --> core
   server --> db
   server --> env
   server --> logger
+  server --> observability
 
+  worker --> app
   worker --> jobs
   worker --> cache
+  worker --> db
   worker --> env
   worker --> logger
   worker --> observability
@@ -81,6 +88,10 @@ flowchart BT
   web --> core
   web --> env
   web --> auth
+  web --> i18n
+  web --> logger
+  web --> seo
+  web --> ui
 ```
 
 ## Layer responsibilities

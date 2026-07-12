@@ -1,8 +1,25 @@
 # Production operations runbook
 
-Last updated: 2026-07-11
+Last updated: 2026-07-12
 
-Operator guide for backups, recovery, observability, container hardening, and data retention on SaaSWeaveSaaS (saasweave). Local Docker defaults are documented in [LOCAL-STACK.md](./LOCAL-STACK.md); this runbook defines **production** expectations.
+Operator guide for backups, recovery, observability, container hardening, and data retention on
+SaaSWeave. Local Docker defaults are documented in [LOCAL-STACK.md](./LOCAL-STACK.md); this runbook
+defines **production** expectations.
+
+## First deployment preflight
+
+Before starting the Coolify stack, set these required values:
+
+- `BETTER_AUTH_SECRET` generated with `pnpm run auth:secret`
+- `PLATFORM_ADMIN_EMAILS` with at least one operator email
+- `MAIL_PROVIDER=resend|smtp`, a verified `MAIL_FROM`, and the selected provider credential
+- `MINIO_ACCESS_KEY_ID`, `MINIO_SECRET_ACCESS_KEY`, and the externally reachable
+  `MINIO_PUBLIC_BASE_URL`
+- `METRICS_BEARER_TOKEN` with at least 32 characters when metrics are enabled
+
+Runtime guards fail closed when administrator, mail, Redis, metrics, or object-storage groups are
+partially configured. The root `docker-compose.yaml` is a loopback-bound local stack; use
+`docker-compose.coolify.yaml` or managed services for production.
 
 ## Ownership
 
@@ -64,7 +81,7 @@ Rotate on schedule or immediately after suspected compromise:
 3. **Postgres PITR**
    - Stop writes: scale server/worker to 0 or enable maintenance mode.
    - Restore to **new** instance or new database name — never overwrite production in place without IC approval.
-   - Run `vp run db:migrate` only if restored snapshot is **older** than target release schema.
+   - Run `pnpm run db:migrate` only if restored snapshot is **older** than target release schema.
    - Point `DATABASE_URL` at restored instance; smoke `GET /server/health/ready`.
 4. **Object storage** — restore affected keys from versioned bucket or cross-region replica.
 5. **Redis** — rebuild from AOF/RDB or cold-start; re-enqueue failed exports/webhooks from DB state.
@@ -80,7 +97,8 @@ Rotate on schedule or immediately after suspected compromise:
 
 ## Migration compatibility
 
-- Migrations run as a **single pre-deploy** step (`vp run db:migrate`) with Postgres advisory lock — safe for one runner only.
+- Migrations run as a **single pre-deploy** step (`pnpm run db:migrate`) with Postgres advisory
+  lock - safe for one runner only.
 - Roll-forward only; backward-compatible API for at least one release when changing columns.
 - Before destructive migrations: take on-demand backup + note restore timestamp.
 
@@ -88,10 +106,10 @@ Rotate on schedule or immediately after suspected compromise:
 
 ```bash
 # Safety gate: only localhost/docker hostnames unless BACKUP_RESTORE_ALLOW_REMOTE=true
-rtk pnpm run ops:backup-verify
+pnpm run ops:backup-verify
 
 # Compose production + local configs
-rtk pnpm run ops:compose-validate
+pnpm run ops:compose-validate
 ```
 
 The backup drill inserts a disposable `audit_log` marker, `pg_dump`s, restores to an isolated database, compares row count and checksum, then cleans up. A Docker volume alone is **not** a backup.

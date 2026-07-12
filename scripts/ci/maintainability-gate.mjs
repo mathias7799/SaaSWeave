@@ -10,7 +10,7 @@ import { resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "../..");
 
-const duplicationThreshold = 20;
+const duplicationThreshold = 5;
 
 function run(command) {
   return execSync(command, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
@@ -51,6 +51,7 @@ function parseJsonFromCommandOutput(output) {
 const fallowMetrics = [
   ["unused_files", "unused file(s)"],
   ["unresolved_imports", "unresolved import(s)"],
+  ["unlisted_dependencies", "unlisted dependency/dependencies"],
   ["circular_dependencies", "circular dependency cycle(s)"],
   ["boundary_violations", "boundary violation(s)"]
 ];
@@ -88,7 +89,7 @@ function evaluateFallowReport(report) {
 
   if (!failed) {
     console.log(
-      `maintainability-gate: fallow - 0 unused files/imports, cycles, and boundary violations; duplication ${dupPercent.toFixed(1)}% within ${duplicationThreshold}%`
+      `maintainability-gate: fallow - 0 unused files/imports, unlisted dependencies, cycles, and boundary violations; duplication ${dupPercent.toFixed(1)}% within ${duplicationThreshold}%`
     );
   }
 }

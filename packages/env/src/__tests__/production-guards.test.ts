@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 
 import {
+  assertProductionAdminConfig,
   assertProductionCredentialGroups,
   assertProductionMailConfig,
   assertProductionRuntimeGuards,
@@ -18,8 +19,10 @@ const productionBase: ProductionGuardEnv = {
   MINIO_ACCESS_KEY_ID: "",
   MINIO_BUCKET: "",
   MINIO_ENDPOINT: "",
+  MINIO_PUBLIC_BASE_URL: "",
   MINIO_SECRET_ACCESS_KEY: "",
   NODE_ENV: "production",
+  PLATFORM_ADMIN_EMAILS: "admin@example.com",
   REQUIRE_EMAIL_VERIFICATION: true,
   RESEND_API_KEY: "re_test_key",
   SMTP_URL: "",
@@ -94,6 +97,7 @@ describe("assertProductionCredentialGroups", () => {
         MINIO_ACCESS_KEY_ID: "key",
         MINIO_BUCKET: "bucket",
         MINIO_ENDPOINT: "http://minio:9000",
+        MINIO_PUBLIC_BASE_URL: "",
         MINIO_SECRET_ACCESS_KEY: ""
       },
       message: "Object storage is partially configured"
@@ -117,11 +121,24 @@ describe("assertProductionCredentialGroups", () => {
         MINIO_ACCESS_KEY_ID: "key",
         MINIO_BUCKET: "bucket",
         MINIO_ENDPOINT: "http://minio:9000",
+        MINIO_PUBLIC_BASE_URL: "https://media.example.com/uploads",
         MINIO_SECRET_ACCESS_KEY: "secret",
         STRIPE_SECRET_KEY: "sk_test",
         STRIPE_WEBHOOK_SECRET: "whsec_test"
       })
     ).not.toThrow();
+  });
+});
+
+describe("assertProductionAdminConfig", () => {
+  it("rejects a missing production administrator", () => {
+    expect(() =>
+      assertProductionAdminConfig({ ...productionBase, PLATFORM_ADMIN_EMAILS: " , " })
+    ).toThrow("PLATFORM_ADMIN_EMAILS must contain at least one administrator email");
+  });
+
+  it("accepts one or more configured administrators", () => {
+    expect(() => assertProductionAdminConfig(productionBase)).not.toThrow();
   });
 });
 

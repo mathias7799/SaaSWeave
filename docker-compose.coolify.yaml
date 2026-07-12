@@ -32,7 +32,7 @@ x-production-container: &production-container
 x-server-env: &server-env
   <<: *app-env
   ENABLE_OPEN_API_DOCS: ${ENABLE_OPEN_API_DOCS:-false}
-  PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:-}
+  PLATFORM_ADMIN_EMAILS: ${PLATFORM_ADMIN_EMAILS:?Set at least one platform administrator email}
   REDIS_URL: redis://redis:6379/0
   CACHE_PREFIX: ${CACHE_PREFIX:-saasweave}
   CACHE_DEFAULT_TTL_SECONDS: ${CACHE_DEFAULT_TTL_SECONDS:-300}
@@ -42,8 +42,8 @@ x-server-env: &server-env
   STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
   STRIPE_PRICES: ${STRIPE_PRICES:-{}}
   STRIPE_METERS: ${STRIPE_METERS:-{}}
-  MAIL_PROVIDER: ${MAIL_PROVIDER:-console}
-  MAIL_FROM: ${MAIL_FROM:-SaaSWeave <hello@saasweave.io>}
+  MAIL_PROVIDER: ${MAIL_PROVIDER:?Set MAIL_PROVIDER to resend or smtp}
+  MAIL_FROM: ${MAIL_FROM:?Set MAIL_FROM to a verified sender address}
   RESEND_API_KEY: ${RESEND_API_KEY:-}
   SMTP_URL: ${SMTP_URL:-}
   GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
@@ -54,7 +54,7 @@ x-server-env: &server-env
   MINIO_BUCKET: ${MINIO_BUCKET:-uploads}
   MINIO_ACCESS_KEY_ID: ${MINIO_ACCESS_KEY_ID:?Set MINIO_ACCESS_KEY_ID}
   MINIO_SECRET_ACCESS_KEY: ${MINIO_SECRET_ACCESS_KEY:?Set MINIO_SECRET_ACCESS_KEY}
-  MINIO_PUBLIC_BASE_URL: ${MINIO_PUBLIC_BASE_URL:-}
+  MINIO_PUBLIC_BASE_URL: ${MINIO_PUBLIC_BASE_URL:?Set the public URL for the uploads bucket}
   MEDIA_UPLOAD_DIR: ${MEDIA_UPLOAD_DIR:-.uploads}
   MEDIA_PUBLIC_BASE_URL: ${MEDIA_PUBLIC_BASE_URL:-}
   WORKER_SCHEDULE_INVITATION_CRON: ${WORKER_SCHEDULE_INVITATION_CRON:-0 3 * * *}
@@ -201,7 +201,7 @@ services:
       /bin/sh -c "
       until mc alias set local http://minio:9000 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD; do sleep 1; done;
       mc mb -p local/$$MINIO_BUCKET || true;
-      mc anonymous set download local/$$MINIO_BUCKET/avatar || true;
+      mc anonymous set download local/$$MINIO_BUCKET/uploads/avatar || true;
       exit 0;
       "
     environment:

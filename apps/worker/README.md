@@ -28,7 +28,7 @@ Same as server for DB, Redis, mail, Stripe, and MinIO. See [packages/env/README.
 | -------------------- | ----------- | ------------------------------ |
 | `WORKER_CONCURRENCY` | `5`         | Parallel jobs per queue worker |
 | `QUEUE_PREFIX`       | `saasweave` | Redis key namespace            |
-| `WORKER_HEALTH_PORT` | `5001`      | Readiness probe port           |
+| `WORKER_HEALTH_PORT` | `9100`      | Readiness probe port           |
 
 ## Development
 

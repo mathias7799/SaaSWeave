@@ -85,7 +85,7 @@ dependencies.
 corepack enable
 pnpm install --frozen-lockfile
 cp .env.docker.example .env.docker
-vp run auth:secret
+pnpm run auth:secret
 ```
 
 Put the generated value in `BETTER_AUTH_SECRET` inside `.env.docker`, then start the stack:
@@ -122,30 +122,30 @@ infrastructure you need:
 
 ```bash
 cp packages/env/.env.example packages/env/.env
-vp run auth:secret
+pnpm run auth:secret
 pnpm run db:dev:start
 pnpm run db:migrate
-vp run dev
+pnpm run dev
 ```
 
 Vite Plus is the repository command surface. Useful commands from the repository root:
 
 ```bash
-vp run dev                 # start workspace development tasks
-vp run -w fix              # format, lint and type-check the workspace
-vp run build               # build all production targets
-vp run test:unit:run       # run package unit suites with isolated queue state
-vp run test:e2e:run        # run configured end-to-end suites
-vp run coverage:gate       # enforce package line-coverage floors
-vp run maintainability     # warnings, boundaries, cycles and duplication
+pnpm run dev               # start workspace development tasks
+pnpm run fix               # format, lint and type-check the workspace
+pnpm run build             # build all production targets
+pnpm run test:unit:run     # run package unit suites with isolated queue state
+pnpm run test:e2e:run      # run configured end-to-end suites
+pnpm run coverage:gate     # enforce package line-coverage floors
+pnpm run maintainability   # warnings, boundaries, cycles and duplication
 ```
 
 Database schema changes belong in `packages/db/src/schema`. Generate and review a migration, verify
 that `DATABASE_URL` points to a local database, then apply it:
 
 ```bash
-vp run db:generate
-vp run db:migrate
+pnpm run db:generate
+pnpm run db:migrate
 ```
 
 ## Configuration
@@ -204,10 +204,12 @@ reference for service configuration.
 Each runnable app has a multi-stage Dockerfile under `apps/*/Dockerfile`. For production:
 
 1. Build immutable web, server, and worker images from the same commit.
-2. Run the server image's `migrator` target once before rolling out application replicas.
-3. Deploy web, server, and worker with the same validated environment and release identifier.
-4. Require PostgreSQL and Redis health before accepting traffic.
-5. Verify `/server/health/ready`, `/_api/health/live`, and the worker readiness endpoint.
+2. Configure `PLATFORM_ADMIN_EMAILS`, a deliverable `MAIL_PROVIDER`, and a verified `MAIL_FROM`.
+3. Configure MinIO credentials and `MINIO_PUBLIC_BASE_URL` when object storage is enabled.
+4. Run the server image's `migrator` target once before rolling out application replicas.
+5. Deploy web, server, and worker with the same validated environment and release identifier.
+6. Require PostgreSQL and Redis health before accepting traffic.
+7. Verify `/server/health/ready`, `/_api/health/live`, and the worker readiness endpoint.
 
 [`docker-compose.coolify.yaml`](docker-compose.coolify.yaml) provides a hardened Coolify-oriented
 baseline. [The production operations guide](docs/PRODUCTION-OPERATIONS.md) covers recovery targets,
@@ -227,5 +229,5 @@ SaaSWeave is available under the [MIT License](LICENSE). Production dependency a
 ## Kudos
 
 SaaSWeave builds on the ideas and foundation of
-[tsu-stack/tsu-stack](https://github.com/tsu-stack/tsu-stack). Thanks to its maintainers and
+[tsu-moe/tsu-stack](https://github.com/tsu-moe/tsu-stack). Thanks to its maintainers and
 contributors for making that work available.
