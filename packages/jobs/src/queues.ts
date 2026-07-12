@@ -137,7 +137,7 @@ export async function enqueueNotification(
 
 export async function enqueueStripeWebhook(data: StripeWebhookJobData, options: JobsOptions = {}) {
   return getQueue(QUEUE_NAMES.STRIPE).add("process", data, {
-    jobId: `stripe:${data.eventId}`,
+    jobId: `stripe-${data.eventId}`,
     ...options
   });
 }
@@ -151,14 +151,14 @@ export async function enqueueWebhookDelivery(
 
 export async function enqueueDataExport(data: DataExportJobData, options: JobsOptions = {}) {
   return getQueue(QUEUE_NAMES.DATA_EXPORT).add("process", data, {
-    jobId: `data-export:${data.requestId}`,
+    jobId: `data-export-${data.requestId}`,
     ...options
   });
 }
 
 export async function enqueueBatchJob(data: BatchJobData, options: JobsOptions = {}) {
   return getQueue(QUEUE_NAMES.BATCH_JOBS).add("process", data, {
-    jobId: `batch-job:${data.batchJobId}`,
+    jobId: `batch-job-${data.batchJobId}`,
     ...options
   });
 }

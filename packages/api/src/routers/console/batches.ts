@@ -140,7 +140,9 @@ export const batchesRouter = {
         type: input.type
       });
 
-      void dispatchBatchJob(created.id);
+      // Wait until BullMQ has accepted the job before returning. Fire-and-forget
+      // dispatch can lose the enqueue when the request scope finishes first.
+      await dispatchBatchJob(created.id);
 
       return shapeBatchJobWithItems(created, created.items);
     }),

@@ -119,7 +119,7 @@ describe("enqueue helpers", () => {
         payload: '{"id":"evt_123"}',
         type: "customer.subscription.updated"
       },
-      expect.objectContaining({ jobId: "stripe:evt_123" })
+      expect.objectContaining({ jobId: "stripe-evt_123" })
     );
   });
 
@@ -173,7 +173,7 @@ describe("enqueue helpers", () => {
     expect(mockAdd).toHaveBeenCalledWith(
       "process",
       { requestId: "req_1" },
-      expect.objectContaining({ jobId: "data-export:req_1" })
+      expect.objectContaining({ jobId: "data-export-req_1" })
     );
   });
 
@@ -183,7 +183,7 @@ describe("enqueue helpers", () => {
     expect(mockAdd).toHaveBeenCalledWith(
       "process",
       { batchJobId: "batch_1" },
-      expect.objectContaining({ jobId: "batch-job:batch_1" })
+      expect.objectContaining({ jobId: "batch-job-batch_1" })
     );
   });
 });

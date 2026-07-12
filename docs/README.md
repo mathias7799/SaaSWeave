@@ -2,6 +2,9 @@
 
 Public documentation for SaaSWeave apps, packages, local development, operations, and security.
 
+Start with the [product tour](./PRODUCT-TOUR.md) for a visual walkthrough of the public site,
+workspace console, platform administration, and interactive API reference.
+
 ## Apps (runnable services)
 
 | Service | Path                                              | Description                                                     |

@@ -49,7 +49,7 @@ export function EmailLayout({ preview, children }: { preview: string; children: 
           <Section>
             <Text style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>
               <span style={{ color: MUTED }}>By</span>
-              <span style={{ color: INK }}>Niche</span>
+              <span style={{ color: INK }}>SaaSWeave</span>
             </Text>
           </Section>
           {children}

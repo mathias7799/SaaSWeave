@@ -113,13 +113,13 @@ describeRedis("queues with Redis", () => {
     const eventId = `evt_${crypto.randomUUID()}`;
     const addSpy = vi.spyOn(getQueue(QUEUE_NAMES.STRIPE), "add");
 
-    await expect(
-      enqueueStripeWebhook({
-        eventId,
-        payload: `{"id":"${eventId}"}`,
-        type: "customer.subscription.updated"
-      })
-    ).rejects.toThrow("Custom Id cannot contain :");
+    const job = await enqueueStripeWebhook({
+      eventId,
+      payload: `{"id":"${eventId}"}`,
+      type: "customer.subscription.updated"
+    });
+
+    expect(job.id).toBe(`stripe-${eventId}`);
 
     expect(addSpy).toHaveBeenCalledWith(
       "process",
@@ -128,7 +128,7 @@ describeRedis("queues with Redis", () => {
         payload: `{"id":"${eventId}"}`,
         type: "customer.subscription.updated"
       },
-      expect.objectContaining({ jobId: `stripe:${eventId}` })
+      expect.objectContaining({ jobId: `stripe-${eventId}` })
     );
 
     addSpy.mockRestore();
@@ -138,11 +138,12 @@ describeRedis("queues with Redis", () => {
     const requestId = crypto.randomUUID();
     const addSpy = vi.spyOn(getQueue(QUEUE_NAMES.DATA_EXPORT), "add");
 
-    await expect(enqueueDataExport({ requestId })).rejects.toThrow("Custom Id cannot contain :");
+    const job = await enqueueDataExport({ requestId });
+    expect(job.id).toBe(`data-export-${requestId}`);
     expect(addSpy).toHaveBeenCalledWith(
       "process",
       { requestId },
-      expect.objectContaining({ jobId: `data-export:${requestId}` })
+      expect.objectContaining({ jobId: `data-export-${requestId}` })
     );
 
     addSpy.mockRestore();
@@ -152,11 +153,12 @@ describeRedis("queues with Redis", () => {
     const batchJobId = crypto.randomUUID();
     const addSpy = vi.spyOn(getQueue(QUEUE_NAMES.BATCH_JOBS), "add");
 
-    await expect(enqueueBatchJob({ batchJobId })).rejects.toThrow("Custom Id cannot contain :");
+    const job = await enqueueBatchJob({ batchJobId });
+    expect(job.id).toBe(`batch-job-${batchJobId}`);
     expect(addSpy).toHaveBeenCalledWith(
       "process",
       { batchJobId },
-      expect.objectContaining({ jobId: `batch-job:${batchJobId}` })
+      expect.objectContaining({ jobId: `batch-job-${batchJobId}` })
     );
 
     addSpy.mockRestore();

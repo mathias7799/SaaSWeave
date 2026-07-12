@@ -157,4 +157,13 @@ describe("email template registry", () => {
     expect(rendered!.html).toContain(actionUrl);
     expect(rendered!.subject).toBe("Your SaaSWeave sign-in link");
   });
+
+  it("uses the SaaSWeave brand in the shared email header", async () => {
+    const rendered = await renderTemplate("welcome", { name: "Jane" });
+
+    expect(rendered).not.toBeNull();
+    expect(rendered!.html).toContain("By</span><span");
+    expect(rendered!.html).toContain(">SaaSWeave</span>");
+    expect(rendered!.html).not.toContain(">Niche</span>");
+  });
 });
