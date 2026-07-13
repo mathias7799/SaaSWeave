@@ -28,6 +28,7 @@ describe("resolveAuthorizedDataExportDownload", () => {
 
     vi.doMock("@saasweave/db", () => {
       return {
+        getEmailCopy: vi.fn(async () => null),
         getDataExportRequest: vi.fn(async () => {
           return {
             completedAt: new Date().toISOString(),
@@ -41,7 +42,8 @@ describe("resolveAuthorizedDataExportDownload", () => {
             requestedByUserId: "user-1",
             status: "ready"
           };
-        })
+        }),
+        recordEmailDelivery: vi.fn(async () => undefined)
       };
     });
 

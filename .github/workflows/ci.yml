@@ -89,13 +89,6 @@ jobs:
           VITE_SERVER_URL: http://localhost:5000/server
           VITE_WEB_URL: http://localhost:3000
 
-      - name: Unit tests
-        run: pnpm exec vp run -r test:unit
-        env:
-          NODE_ENV: development
-          DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
-          BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
-
       - name: Validate compose configurations
         run: pnpm run ops:compose-validate
 
@@ -158,8 +151,17 @@ jobs:
       - name: Run database migrations
         run: pnpm exec tsx packages/db/src/migrate-cli.ts
 
-      - name: Integration tests (api + db, real Postgres/Redis)
-        run: pnpm --filter @saasweave/api --filter @saasweave/db run test:integration
+      - name: Database integration tests (real Postgres/Redis)
+        run: pnpm --filter @saasweave/db run test:integration
+
+      # Coverage instrumentation retains source maps and counters in the measured heap. Run the
+      # streaming memory bound once without instrumentation; API correctness coverage runs above.
+      - name: Streaming export memory bound
+        run: >-
+          pnpm --filter @saasweave/api run test:integration --
+          --run src/__tests__/integration/data-export-large.integration.test.ts
+        env:
+          NODE_OPTIONS: --expose-gc
 
       - name: Backup and restore integrity gate
         run: |

@@ -4,7 +4,8 @@
  * Run after unit tests with coverage enabled per package.
  */
 import { execSync } from "node:child_process";
-import { resolve } from "node:path";
+import { readFileSync, rmSync } from "node:fs";
+import { join, resolve } from "node:path";
 
 const root = resolve(import.meta.dirname, "../..");
 
@@ -32,26 +33,35 @@ const THRESHOLDS = {
 const packages = Object.keys(THRESHOLDS);
 let failed = false;
 
-function parseLineCoverage(output) {
-  const match = output.match(/^Lines\s*:\s*([\d.]+)%/m);
-  return match ? Number(match[1]) : null;
+function readLineCoverage(summaryPath) {
+  const summary = JSON.parse(readFileSync(summaryPath, "utf8"));
+  const lines = summary.total?.lines?.pct;
+  if (typeof lines !== "number" || !Number.isFinite(lines)) {
+    throw new Error("coverage-summary.json is missing total.lines.pct");
+  }
+  return lines;
 }
 
 for (const pkg of packages) {
   const filter = pkg === "@saasweave/worker" ? "@saasweave/worker" : pkg;
   const reportDirectory = `/tmp/saasweave-coverage/${pkg.replaceAll(/[^a-z0-9-]/gi, "-")}`;
+  const summaryPath = join(reportDirectory, "coverage-summary.json");
+  rmSync(reportDirectory, { force: true, recursive: true });
+  // API integration tests cover its transport and persistence boundaries. This is their sole
+  // full-suite CI invocation; the integration job retains only the non-instrumented memory guard.
   const testCommand =
     pkg === "@saasweave/api"
-      ? `VITEST_ALL=1 pnpm --filter ${filter} exec vp test --coverage --coverage.reportsDirectory=${reportDirectory}`
-      : `pnpm --filter ${filter} exec vp test --coverage --coverage.reportsDirectory=${reportDirectory}`;
+      ? `VITEST_ALL=1 pnpm --filter ${filter} exec vp test --coverage --coverage.reporter=json-summary --coverage.reportsDirectory=${reportDirectory}`
+      : `pnpm --filter ${filter} exec vp test --coverage --coverage.reporter=json-summary --coverage.reportsDirectory=${reportDirectory}`;
   try {
-    const output = execSync(`${testCommand} 2>&1`, {
+    execSync(`${testCommand} 2>&1`, {
       cwd: root,
       encoding: "utf8",
       env: {
         ...process.env,
         BETTER_AUTH_SECRET:
           process.env.BETTER_AUTH_SECRET ?? "coverage-only-secret-000000000000000000000000",
+        COVERAGE_RUN: "1",
         DATABASE_URL:
           process.env.DATABASE_URL ??
           "postgresql://postgres:changeme@localhost:5432/saasweave_test",
@@ -60,13 +70,8 @@ for (const pkg of packages) {
       },
       stdio: ["ignore", "pipe", "pipe"]
     });
-    const lines = parseLineCoverage(output);
+    const lines = readLineCoverage(summaryPath);
     const min = THRESHOLDS[pkg];
-    if (lines === null) {
-      console.error(`coverage-gate: could not parse coverage for ${pkg}`);
-      failed = true;
-      continue;
-    }
     if (lines < min) {
       console.error(`coverage-gate: ${pkg} line coverage ${lines}% < ${min}%`);
       failed = true;
@@ -75,18 +80,9 @@ for (const pkg of packages) {
     }
   } catch (error) {
     const output = `${error.stdout ?? ""}${error.stderr ?? ""}`;
-    const lines = parseLineCoverage(output);
-    const min = THRESHOLDS[pkg];
-    if (lines !== null && lines < min) {
-      console.error(`coverage-gate: ${pkg} line coverage ${lines}% < ${min}%`);
-      failed = true;
-    } else if (lines !== null) {
-      console.log(`coverage-gate: ${pkg} — ${lines}% lines (min ${min}%)`);
-    } else {
-      console.error(`coverage-gate: ${pkg} test run failed`);
-      console.error(output);
-      failed = true;
-    }
+    console.error(`coverage-gate: ${pkg} test run or coverage report failed`);
+    console.error(output || error.message);
+    failed = true;
   }
 }
 
