@@ -13,7 +13,7 @@
     "prepare": "vp config",
     "deps": "vpx taze@latest -Ilwr --maturity-period 3",
     "deps:major": "vpx taze@latest major -Ilwr --maturity-period 3",
-    "fallow": "vpx fallow --skip health",
+    "fallow": "vp dlx fallow --skip health",
     "maintainability": "node scripts/ci/maintainability-gate.mjs",
     "coverage:gate": "node scripts/ci/coverage-gate.mjs",
     "tanstack": "vpx @tanstack/cli@latest",
@@ -45,6 +45,7 @@
     "@vitest/coverage-v8": "4.1.10",
     "eslint-plugin-fsd-lint": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
+    "tsx": "catalog:",
     "vite-plus": "catalog:"
   },
   "commitlint": {

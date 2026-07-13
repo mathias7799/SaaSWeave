@@ -13,57 +13,10 @@ workspace packages use the `@saasweave/*` scope consistently across apps, librar
 ![SaaSWeave full product slideshow](docs/media/saasweave-product-slideshow.gif)
 
 The slideshow covers the public experience, onboarding, workspace console, gated integrations,
-platform administration, and operational tooling. The active demos below exercise real workflows
-against the Docker stack.
-
-![SaaSWeave home page](docs/media/saasweave-home.png)
-
-The public runtime workbench verifies the connected API, client hydration, localization, and image
-delivery against the running stack.
-
-![SaaSWeave runtime workbench](docs/media/saasweave-playground.png)
-
-Optional OpenAPI documentation exposes the typed server surface through an interactive Scalar UI.
-
-![SaaSWeave API documentation](docs/media/saasweave-api-docs.png)
-
-Authenticated teams use one console for usage, billing, credentials, organization management, and
-account security.
-
-![SaaSWeave workspace console tour](docs/media/saasweave-console-tour.gif)
-
-Batch processing is backed by BullMQ workers and reports queued, processing, and completed item
-counts in the console.
-
-![SaaSWeave active batch-processing demo](docs/media/saasweave-batch-demo.gif)
-
-Webhook configuration exposes signed event subscriptions with URL validation and scoped event
-selection.
-
-![SaaSWeave webhook configuration demo](docs/media/saasweave-webhook-demo.gif)
-
-Platform operators get a separate administration surface for tenants, plans, users, feature
-rollouts, email operations, auditing, and global configuration.
-
-![SaaSWeave platform administration tour](docs/media/saasweave-admin-tour.gif)
-
-The transactional email workbench switches between live rendered templates using the shared
-SaaSWeave email layout.
-
-![SaaSWeave active email-template demo](docs/media/saasweave-email-demo.gif)
-
-Administrators can inspect tenants, change plan entitlements, create catalog entries, and manage
-global feature rollout from the same control surface.
-
-![SaaSWeave administration controls demo](docs/media/saasweave-admin-controls-demo.gif)
-
-The generated API reference supports endpoint navigation, request schemas, client examples, and
-authenticated request testing.
-
-![SaaSWeave interactive API documentation demo](docs/media/saasweave-api-docs-demo.gif)
-
-See the [complete product tour](docs/PRODUCT-TOUR.md) for onboarding and detailed screenshots of
-the workspace and administration surfaces.
+platform administration, and operational tooling. See the
+[complete product tour](docs/PRODUCT-TOUR.md) for detailed screenshots and active demonstrations of
+batch processing, webhook configuration, email previews, administration controls, and the API
+reference.
 
 ## What is included
 
