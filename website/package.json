@@ -1,0 +1,17 @@
+{
+  "name": "saasweave-website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Documentation site for SaaSWeave (isolated from the pnpm workspace; built with npm).",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "@fontsource-variable/geist": "^5.2.9",
+    "@fontsource-variable/geist-mono": "^5.2.8",
+    "vitepress": "^1.6.3"
+  }
+}

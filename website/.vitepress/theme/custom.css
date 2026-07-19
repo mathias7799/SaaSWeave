@@ -1,0 +1,112 @@
+/**
+ * SaaSWeave docs theme.
+ *
+ * A single locked accent (pine green), neutrals tinted a touch toward the
+ * accent hue, the product's Geist typeface, and a solid hero title instead of
+ * the default VitePress gradient wordmark.
+ */
+
+:root {
+  --vp-font-family-base: 'Geist Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --vp-font-family-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', 'Cascadia Mono',
+    Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* Accent, light. brand-1 carries link/inline text, brand-3 fills buttons. */
+  --vp-c-brand-1: #0b7a52;
+  --vp-c-brand-2: #096647;
+  --vp-c-brand-3: #0f8a5f;
+  --vp-c-brand-soft: rgba(15, 138, 95, 0.12);
+  --vp-c-brand-softer: rgba(15, 138, 95, 0.07);
+
+  /* Off-white surfaces, faintly cooled toward the accent. */
+  --vp-c-bg: #fcfcfb;
+  --vp-c-bg-alt: #f4f6f4;
+  --vp-c-bg-soft: #f0f3f1;
+
+  --vp-c-text-1: #1a2320;
+  --vp-c-text-2: #46524d;
+  --vp-c-text-3: #6b7772;
+
+  /* Solid CTA button. */
+  --vp-button-brand-bg: var(--vp-c-brand-3);
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-bg: var(--vp-c-brand-2);
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-hover-border: transparent;
+
+  /* Home hero: solid wordmark, no gradient text. */
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+  --vp-home-hero-image-background-image: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(15, 138, 95, 0.18),
+    transparent 70%
+  );
+  --vp-home-hero-image-filter: blur(48px);
+}
+
+.dark {
+  --vp-c-brand-1: #45d6a0;
+  --vp-c-brand-2: #2fbf8a;
+  --vp-c-brand-3: #148c60;
+  --vp-c-brand-soft: rgba(69, 214, 160, 0.14);
+  --vp-c-brand-softer: rgba(69, 214, 160, 0.08);
+
+  --vp-c-bg: #14171a;
+  --vp-c-bg-alt: #1a1e20;
+  --vp-c-bg-soft: #1e2225;
+
+  --vp-c-text-1: #eef2f0;
+  --vp-c-text-2: #b3bdb9;
+  --vp-c-text-3: #7f8a86;
+
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+  --vp-home-hero-image-background-image: radial-gradient(
+    60% 60% at 50% 40%,
+    rgba(69, 214, 160, 0.16),
+    transparent 70%
+  );
+}
+
+/* Tighter, more confident hero headline. */
+.VPHero .name,
+.VPHero .text {
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+
+.VPHero .tagline {
+  line-height: 1.5;
+  max-width: 46ch;
+}
+
+/* Frame every screenshot and GIF so the tour reads as a set. */
+.vp-doc img:not(.VPImage) {
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-divider);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.dark .vp-doc img:not(.VPImage) {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Feature cards: one border, no competing wide shadow. */
+.VPFeature {
+  border: 1px solid var(--vp-c-divider);
+  transition: border-color 0.2s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-1);
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .VPFeature,
+  .VPFeature:hover {
+    transition: none;
+    transform: none;
+  }
+}
