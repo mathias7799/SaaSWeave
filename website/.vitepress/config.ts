@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
 // Reuse the screenshots and GIFs that already live in docs/media instead of
 // duplicating them. VitePress serves everything in publicDir at the site root,
@@ -7,8 +8,9 @@ import { defineConfig } from 'vitepress'
 // automatically).
 const mediaDir = fileURLToPath(new URL('../../docs/media', import.meta.url))
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'SaaSWeave',
+  titleTemplate: ':title · SaaSWeave',
   description:
     'A production-oriented, multi-tenant SaaS starter built as a full-stack TypeScript monorepo.',
   lang: 'en-US',
@@ -170,4 +172,12 @@ export default defineConfig({
 
     outline: { level: [2, 3] },
   },
-})
+
+  // Mermaid renders in the browser; the plugin re-initializes on light/dark
+  // toggle (forcing its dark theme in dark mode). "neutral" is grayscale and
+  // sits far better on the warm-neutral base than the default yellow/lavender.
+  mermaid: {
+    securityLevel: 'strict',
+    theme: 'neutral',
+  },
+}))

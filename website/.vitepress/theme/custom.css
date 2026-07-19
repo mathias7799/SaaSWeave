@@ -135,3 +135,20 @@
     transform: none;
   }
 }
+
+/* Mermaid diagrams: framed, centered, and horizontally scrollable on narrow
+   screens so a wide graph never forces the page body to scroll sideways. */
+.vp-doc .mermaid {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 0.625rem;
+  background: var(--vp-c-bg-alt);
+  overflow-x: auto;
+  text-align: center;
+}
+
+.vp-doc .mermaid svg {
+  max-width: 100%;
+  height: auto;
+}

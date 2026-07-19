@@ -7,6 +7,17 @@ incident response in full.
 
 ## Deployment sequence
 
+```mermaid
+flowchart TB
+  A["Build web, server, worker images<br/>from the same commit"] --> B["Run the migrator target once"]
+  B --> C["Deploy web + server + worker<br/>same env and release id"]
+  C --> D{"PostgreSQL and Redis healthy?"}
+  D -->|no| W["Hold rollout"]
+  W --> D
+  D -->|yes| E["Accept traffic"]
+  E --> F["Verify /server/health/ready,<br/>/_api/health/live, worker readiness"]
+```
+
 1. Build immutable web, server, and worker images from the same commit.
 2. Configure `PLATFORM_ADMIN_EMAILS`, a deliverable `MAIL_PROVIDER`, and a verified `MAIL_FROM`.
 3. Configure MinIO credentials and `MINIO_PUBLIC_BASE_URL` when object storage is enabled.

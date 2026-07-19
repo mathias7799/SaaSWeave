@@ -13,6 +13,8 @@
   "devDependencies": {
     "@fontsource-variable/geist": "^5.2.9",
     "@fontsource-variable/geist-mono": "^5.2.8",
-    "vitepress": "^1.6.3"
+    "mermaid": "^11.4.1",
+    "vitepress": "^1.6.3",
+    "vitepress-plugin-mermaid": "^2.0.17"
   }
 }
