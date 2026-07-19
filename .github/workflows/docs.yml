@@ -1,14 +1,17 @@
 name: Docs site
 
-# Builds the VitePress documentation site in website/ and deploys it to GitHub
-# Pages. The site is isolated from the pnpm workspace and is installed with npm.
+# Builds the VitePress documentation site in website/ and publishes the static
+# output to the `gh-pages` branch. This targets GitHub Pages in "Deploy from a
+# branch" mode (Settings -> Pages -> Source: "Deploy from a branch", Branch:
+# gh-pages, Folder: / (root)).
 #
-# Before the first deploy, enable Pages for the repository:
-#   Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+# It runs on push to the docs branch (so you can deploy without merging first)
+# and to main, plus manual dispatch. The site is isolated from the pnpm
+# workspace and is installed with npm.
 
 on:
   push:
-    branches: [main]
+    branches: [main, Saasweave-docs]
     paths:
       - 'website/**'
       - 'docs/media/**'
@@ -16,21 +19,15 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Allow one concurrent deployment; do not cancel an in-progress production deploy.
 concurrency:
-  group: pages
+  group: docs-pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: website
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,26 +40,21 @@ jobs:
           cache-dependency-path: website/package-lock.json
 
       - name: Install dependencies
+        working-directory: website
         run: npm ci
 
       - name: Build site
+        working-directory: website
         run: npm run build
 
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Publish to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: website/.vitepress/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: website/.vitepress/dist
+          publish_branch: gh-pages
+          # Keep gh-pages as a single fresh commit instead of accumulating history.
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: deploy site'
