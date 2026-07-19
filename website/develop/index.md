@@ -15,7 +15,6 @@ crosses into another concern.
 - [Vite Plus toolchain](/develop/vite-plus): `vp` and `vpx`, workspace scripts, package management.
 - [TypeScript conventions](/develop/typescript): typing rules and patterns used throughout the repo.
 - [Testing](/develop/testing): focused unit and end-to-end coverage and test command scope.
-- [Choice flows](/develop/choice-flows): native approvals, structured input, human decision points.
 
 ## Backend
 
@@ -38,7 +37,10 @@ crosses into another concern.
 
 ## Agent skills
 
-Packaged, task-scoped playbooks a coding agent (or a person) can follow end to end.
+The repository packages a couple of task-scoped playbooks as agent skills under
+`.agents/skills/`. Each skill is a thin activation wrapper (when to use it and a
+short procedure); the durable knowledge lives in reference docs that read as
+standalone engineering guides. Those reference docs are below.
 
-- [Feature plan](/develop/skills/feature-plan): plan a new toggleable feature across every cross-cutting surface.
-- [Redis, workers, cache](/develop/skills/redis-workers-cache): cache, BullMQ queues, worker processors, and runtime checks.
+- [Building a feature end-to-end](/develop/skills/feature-building): every cross-cutting surface a new toggleable feature touches, with the concrete repo pattern for each.
+- [Redis, queues, and caching](/develop/skills/redis-cache-jobs): package boundaries and the cache, queue, and retention patterns.

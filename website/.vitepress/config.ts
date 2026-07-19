@@ -103,7 +103,6 @@ export default defineConfig({
             { text: 'Vite Plus toolchain', link: '/develop/vite-plus' },
             { text: 'TypeScript conventions', link: '/develop/typescript' },
             { text: 'Testing', link: '/develop/testing' },
-            { text: 'Choice flows', link: '/develop/choice-flows' },
           ],
         },
         {
@@ -132,8 +131,8 @@ export default defineConfig({
         {
           text: 'Agent skills',
           items: [
-            { text: 'Feature plan', link: '/develop/skills/feature-plan' },
-            { text: 'Redis, workers, cache', link: '/develop/skills/redis-workers-cache' },
+            { text: 'Building a feature end-to-end', link: '/develop/skills/feature-building' },
+            { text: 'Redis, queues, and caching', link: '/develop/skills/redis-cache-jobs' },
           ],
         },
       ],

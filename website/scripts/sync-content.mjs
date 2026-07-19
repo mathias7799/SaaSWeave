@@ -7,7 +7,7 @@
 //   - a link to another mirrored doc  -> its site route
 //   - a link to anything else in repo -> an absolute github.com URL
 
-import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -23,7 +23,6 @@ const manifest = [
   ['.agents/vite-plus.md', 'develop/vite-plus.md'],
   ['.agents/typescript.md', 'develop/typescript.md'],
   ['.agents/testing.md', 'develop/testing.md'],
-  ['.agents/choice-flows.md', 'develop/choice-flows.md'],
   ['.agents/core.md', 'develop/core.md'],
   ['.agents/environment-variables.md', 'develop/environment-variables.md'],
   ['.agents/auth.md', 'develop/auth.md'],
@@ -37,9 +36,10 @@ const manifest = [
   ['.agents/ui.md', 'develop/ui.md'],
   ['.agents/i18n.md', 'develop/i18n.md'],
   ['.agents/seo.md', 'develop/seo.md'],
-  // agent skills (strip the YAML frontmatter; the body has its own heading)
-  ['.agents/skills/feature-plan/SKILL.md', 'develop/skills/feature-plan.md', true],
-  ['.agents/skills/redis-workers-cache/SKILL.md', 'develop/skills/redis-workers-cache.md', true],
+  // Reference docs behind the agent skills. The SKILL.md wrappers themselves
+  // are agent-activation scaffolding and are intentionally not mirrored.
+  ['.agents/skills/feature-plan/references/feature-building.md', 'develop/skills/feature-building.md'],
+  ['.agents/skills/redis-workers-cache/references/redis-cache-jobs.md', 'develop/skills/redis-cache-jobs.md'],
   // operational runbooks
   ['docs/LOCAL-STACK.md', 'guide/local-stack.md'],
   ['docs/SSO-TESTING.md', 'guide/sso-testing.md'],
@@ -81,6 +81,20 @@ function stripYamlFrontmatter(content) {
   if (end === -1) return content
   const after = content.indexOf('\n', end + 1)
   return content.slice(after + 1).replace(/^\s+/, '')
+}
+
+// Remove previously generated output so dropped/renamed sources do not leave
+// stale pages behind. We own everything under develop/ except the authored
+// index.md, plus the two mirrored guide runbooks.
+const developDir = join(websiteDir, 'develop')
+if (existsSync(developDir)) {
+  for (const entry of readdirSync(developDir)) {
+    if (entry === 'index.md') continue
+    rmSync(join(developDir, entry), { recursive: true, force: true })
+  }
+}
+for (const stale of ['guide/local-stack.md', 'guide/sso-testing.md']) {
+  rmSync(join(websiteDir, stale), { force: true })
 }
 
 let written = 0
