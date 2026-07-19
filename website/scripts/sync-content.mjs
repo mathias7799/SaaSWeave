@@ -43,6 +43,25 @@ const manifest = [
   // operational runbooks
   ['docs/LOCAL-STACK.md', 'guide/local-stack.md'],
   ['docs/SSO-TESTING.md', 'guide/sso-testing.md'],
+  // runnable app READMEs
+  ['apps/web/README.md', 'reference/apps/web.md'],
+  ['apps/server/README.md', 'reference/apps/server.md'],
+  ['apps/worker/README.md', 'reference/apps/worker.md'],
+  // shared package READMEs
+  ['packages/core/README.md', 'reference/packages/core.md'],
+  ['packages/env/README.md', 'reference/packages/env.md'],
+  ['packages/db/README.md', 'reference/packages/db.md'],
+  ['packages/app/README.md', 'reference/packages/app.md'],
+  ['packages/jobs/README.md', 'reference/packages/jobs.md'],
+  ['packages/auth/README.md', 'reference/packages/auth.md'],
+  ['packages/api/README.md', 'reference/packages/api.md'],
+  ['packages/cache/README.md', 'reference/packages/cache.md'],
+  ['packages/logger/README.md', 'reference/packages/logger.md'],
+  ['packages/observability/README.md', 'reference/packages/observability.md'],
+  ['packages/mailer/README.md', 'reference/packages/mailer.md'],
+  ['packages/i18n/README.md', 'reference/packages/i18n.md'],
+  ['packages/ui/README.md', 'reference/packages/ui.md'],
+  ['packages/seo/README.md', 'reference/packages/seo.md'],
 ].map(([src, dest, stripFrontmatter]) => ({ src, dest, stripFrontmatter }))
 
 // Map absolute source path -> site route, so cross-references between mirrored
@@ -85,13 +104,17 @@ function stripYamlFrontmatter(content) {
 
 // Remove previously generated output so dropped/renamed sources do not leave
 // stale pages behind. We own everything under develop/ except the authored
-// index.md, plus the two mirrored guide runbooks.
+// index.md, the generated reference/apps and reference/packages dirs, and the
+// two mirrored guide runbooks.
 const developDir = join(websiteDir, 'develop')
 if (existsSync(developDir)) {
   for (const entry of readdirSync(developDir)) {
     if (entry === 'index.md') continue
     rmSync(join(developDir, entry), { recursive: true, force: true })
   }
+}
+for (const staleDir of ['reference/apps', 'reference/packages']) {
+  rmSync(join(websiteDir, staleDir), { recursive: true, force: true })
 }
 for (const stale of ['guide/local-stack.md', 'guide/sso-testing.md']) {
   rmSync(join(websiteDir, stale), { force: true })

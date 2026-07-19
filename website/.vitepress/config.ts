@@ -140,11 +140,36 @@ export default withMermaid(defineConfig({
       ],
       '/reference/': [
         {
-          text: 'Reference',
+          text: 'Overview',
           items: [
             { text: 'Package reference', link: '/reference/packages' },
-            { text: 'Product tour', link: '/tour' },
-            { text: 'Guide', link: '/guide/introduction' },
+          ],
+        },
+        {
+          text: 'Applications',
+          items: [
+            { text: 'web', link: '/reference/apps/web' },
+            { text: 'server', link: '/reference/apps/server' },
+            { text: 'worker', link: '/reference/apps/worker' },
+          ],
+        },
+        {
+          text: 'Packages',
+          items: [
+            { text: 'core', link: '/reference/packages/core' },
+            { text: 'env', link: '/reference/packages/env' },
+            { text: 'db', link: '/reference/packages/db' },
+            { text: 'app', link: '/reference/packages/app' },
+            { text: 'jobs', link: '/reference/packages/jobs' },
+            { text: 'auth', link: '/reference/packages/auth' },
+            { text: 'api', link: '/reference/packages/api' },
+            { text: 'cache', link: '/reference/packages/cache' },
+            { text: 'logger', link: '/reference/packages/logger' },
+            { text: 'observability', link: '/reference/packages/observability' },
+            { text: 'mailer', link: '/reference/packages/mailer' },
+            { text: 'i18n', link: '/reference/packages/i18n' },
+            { text: 'ui', link: '/reference/packages/ui' },
+            { text: 'seo', link: '/reference/packages/seo' },
           ],
         },
       ],

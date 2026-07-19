@@ -6,5 +6,7 @@ node_modules/
 # The authored develop/index.md is kept; everything else under develop/ is generated.
 develop/*
 !develop/index.md
+reference/apps/
+reference/packages/
 guide/local-stack.md
 guide/sso-testing.md
