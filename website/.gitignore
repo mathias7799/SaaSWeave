@@ -8,5 +8,6 @@ develop/*
 !develop/index.md
 reference/apps/
 reference/packages/
+reference/dependency-graph.md
 guide/local-stack.md
 guide/sso-testing.md

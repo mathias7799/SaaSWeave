@@ -47,11 +47,110 @@ export default withMermaid(defineConfig({
   themeConfig: {
     siteTitle: 'SaaSWeave',
 
+    // Dropdowns (not bare links) so that on mobile the hamburger menu exposes
+    // every section and page directly, instead of only the section overview.
     nav: [
-      { text: 'Guide', link: '/guide/introduction', activeMatch: '/guide/' },
+      {
+        text: 'Guide',
+        activeMatch: '/guide/',
+        items: [
+          { text: 'Introduction', link: '/guide/introduction' },
+          { text: 'Quick start', link: '/guide/getting-started' },
+          { text: 'Configuration', link: '/guide/configuration' },
+          { text: 'Architecture', link: '/guide/architecture' },
+          { text: 'Security model', link: '/guide/security' },
+          { text: 'Production operations', link: '/guide/operations' },
+          { text: 'Local stack', link: '/guide/local-stack' },
+          { text: 'SSO testing', link: '/guide/sso-testing' },
+        ],
+      },
       { text: 'Product tour', link: '/tour' },
-      { text: 'Develop', link: '/develop', activeMatch: '/develop' },
-      { text: 'Packages', link: '/reference/packages' },
+      {
+        text: 'Develop',
+        activeMatch: '/develop',
+        items: [
+          {
+            text: 'Working in the codebase',
+            items: [
+              { text: 'Overview', link: '/develop' },
+              { text: 'Workflow', link: '/develop/workflow' },
+              { text: 'Vite Plus toolchain', link: '/develop/vite-plus' },
+              { text: 'TypeScript conventions', link: '/develop/typescript' },
+              { text: 'Testing', link: '/develop/testing' },
+            ],
+          },
+          {
+            text: 'Backend',
+            items: [
+              { text: 'Core contracts', link: '/develop/core' },
+              { text: 'Environment variables', link: '/develop/environment-variables' },
+              { text: 'Auth patterns', link: '/develop/auth' },
+              { text: 'oRPC patterns', link: '/develop/orpc' },
+              { text: 'API fetching patterns', link: '/develop/api-fetching-patterns' },
+              { text: 'Logging', link: '/develop/logging' },
+              { text: 'Media storage', link: '/develop/media-storage' },
+              { text: 'End-to-end features', link: '/develop/end-to-end-features' },
+            ],
+          },
+          {
+            text: 'Frontend',
+            items: [
+              { text: 'TanStack patterns', link: '/develop/tanstack-patterns' },
+              { text: 'Zustand state', link: '/develop/zustand' },
+              { text: 'UI components', link: '/develop/ui' },
+              { text: 'Internationalization', link: '/develop/i18n' },
+              { text: 'SEO', link: '/develop/seo' },
+            ],
+          },
+          {
+            text: 'Agent skills',
+            items: [
+              { text: 'Building a feature end-to-end', link: '/develop/skills/feature-building' },
+              { text: 'Redis, queues, and caching', link: '/develop/skills/redis-cache-jobs' },
+            ],
+          },
+        ],
+      },
+      {
+        text: 'Reference',
+        activeMatch: '/reference/',
+        items: [
+          {
+            text: 'Overview',
+            items: [
+              { text: 'Package reference', link: '/reference/packages' },
+              { text: 'Dependency graph', link: '/reference/dependency-graph' },
+            ],
+          },
+          {
+            text: 'Applications',
+            items: [
+              { text: 'web', link: '/reference/apps/web' },
+              { text: 'server', link: '/reference/apps/server' },
+              { text: 'worker', link: '/reference/apps/worker' },
+            ],
+          },
+          {
+            text: 'Packages',
+            items: [
+              { text: 'core', link: '/reference/packages/core' },
+              { text: 'env', link: '/reference/packages/env' },
+              { text: 'db', link: '/reference/packages/db' },
+              { text: 'app', link: '/reference/packages/app' },
+              { text: 'jobs', link: '/reference/packages/jobs' },
+              { text: 'auth', link: '/reference/packages/auth' },
+              { text: 'api', link: '/reference/packages/api' },
+              { text: 'cache', link: '/reference/packages/cache' },
+              { text: 'logger', link: '/reference/packages/logger' },
+              { text: 'observability', link: '/reference/packages/observability' },
+              { text: 'mailer', link: '/reference/packages/mailer' },
+              { text: 'i18n', link: '/reference/packages/i18n' },
+              { text: 'ui', link: '/reference/packages/ui' },
+              { text: 'seo', link: '/reference/packages/seo' },
+            ],
+          },
+        ],
+      },
       {
         text: 'Links',
         items: [
@@ -143,6 +242,7 @@ export default withMermaid(defineConfig({
           text: 'Overview',
           items: [
             { text: 'Package reference', link: '/reference/packages' },
+            { text: 'Dependency graph', link: '/reference/dependency-graph' },
           ],
         },
         {

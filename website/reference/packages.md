@@ -31,6 +31,5 @@ this site; use the sidebar to browse them.
 | [ui](/reference/packages/ui)                       | shadcn/ui component library                    |
 | [seo](/reference/packages/seo)                     | TanStack Start SEO helpers                     |
 
-The [package dependency graph](https://github.com/mathias7799/SaaSWeave/blob/main/docs/PACKAGE-DEPENDENCY-GRAPH.md)
-documents package ownership and the enforced direction of dependencies between
-them.
+The [package dependency graph](/reference/dependency-graph) documents package
+ownership and the enforced direction of dependencies between them.

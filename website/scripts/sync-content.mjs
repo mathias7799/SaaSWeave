@@ -43,6 +43,7 @@ const manifest = [
   // operational runbooks
   ['docs/LOCAL-STACK.md', 'guide/local-stack.md'],
   ['docs/SSO-TESTING.md', 'guide/sso-testing.md'],
+  ['docs/PACKAGE-DEPENDENCY-GRAPH.md', 'reference/dependency-graph.md'],
   // runnable app READMEs
   ['apps/web/README.md', 'reference/apps/web.md'],
   ['apps/server/README.md', 'reference/apps/server.md'],
@@ -116,7 +117,11 @@ if (existsSync(developDir)) {
 for (const staleDir of ['reference/apps', 'reference/packages']) {
   rmSync(join(websiteDir, staleDir), { recursive: true, force: true })
 }
-for (const stale of ['guide/local-stack.md', 'guide/sso-testing.md']) {
+for (const stale of [
+  'guide/local-stack.md',
+  'guide/sso-testing.md',
+  'reference/dependency-graph.md',
+]) {
   rmSync(join(websiteDir, stale), { force: true })
 }
 
