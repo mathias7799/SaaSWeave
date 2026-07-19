@@ -48,6 +48,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/introduction', activeMatch: '/guide/' },
       { text: 'Product tour', link: '/tour' },
+      { text: 'Develop', link: '/develop', activeMatch: '/develop' },
       { text: 'Packages', link: '/reference/packages' },
       {
         text: 'Links',
@@ -78,10 +79,61 @@ export default defineConfig({
           ],
         },
         {
+          text: 'Runbooks',
+          items: [
+            { text: 'Local stack', link: '/guide/local-stack' },
+            { text: 'SSO testing', link: '/guide/sso-testing' },
+          ],
+        },
+        {
           text: 'Reference',
           items: [
             { text: 'Product tour', link: '/tour' },
+            { text: 'Development guide', link: '/develop' },
             { text: 'Package reference', link: '/reference/packages' },
+          ],
+        },
+      ],
+      '/develop': [
+        {
+          text: 'Working in the codebase',
+          items: [
+            { text: 'Overview', link: '/develop' },
+            { text: 'Workflow', link: '/develop/workflow' },
+            { text: 'Vite Plus toolchain', link: '/develop/vite-plus' },
+            { text: 'TypeScript conventions', link: '/develop/typescript' },
+            { text: 'Testing', link: '/develop/testing' },
+            { text: 'Choice flows', link: '/develop/choice-flows' },
+          ],
+        },
+        {
+          text: 'Backend',
+          items: [
+            { text: 'Core contracts', link: '/develop/core' },
+            { text: 'Environment variables', link: '/develop/environment-variables' },
+            { text: 'Auth patterns', link: '/develop/auth' },
+            { text: 'oRPC patterns', link: '/develop/orpc' },
+            { text: 'API fetching patterns', link: '/develop/api-fetching-patterns' },
+            { text: 'Logging', link: '/develop/logging' },
+            { text: 'Media storage', link: '/develop/media-storage' },
+            { text: 'End-to-end features', link: '/develop/end-to-end-features' },
+          ],
+        },
+        {
+          text: 'Frontend',
+          items: [
+            { text: 'TanStack patterns', link: '/develop/tanstack-patterns' },
+            { text: 'Zustand state', link: '/develop/zustand' },
+            { text: 'UI components', link: '/develop/ui' },
+            { text: 'Internationalization', link: '/develop/i18n' },
+            { text: 'SEO', link: '/develop/seo' },
+          ],
+        },
+        {
+          text: 'Agent skills',
+          items: [
+            { text: 'Feature plan', link: '/develop/skills/feature-plan' },
+            { text: 'Redis, workers, cache', link: '/develop/skills/redis-workers-cache' },
           ],
         },
       ],
