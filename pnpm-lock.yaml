@@ -49,8 +49,8 @@ catalogs:
       specifier: 5.2.8
       version: 5.2.8
     '@hono/node-server':
-      specifier: 2.0.6
-      version: 2.0.6
+      specifier: 2.0.10
+      version: 2.0.10
     '@inlang/cli':
       specifier: 3.1.14
       version: 3.1.14
@@ -330,7 +330,7 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: 'catalog:'
-        version: 2.0.6(hono@4.12.27)
+        version: 2.0.10(hono@4.12.27)
       '@orpc/json-schema':
         specifier: 'catalog:'
         version: 1.14.6(@opentelemetry/api@1.9.1)(crossws@0.4.5(srvx@0.11.22))(ws@8.21.0)
@@ -1992,8 +1992,8 @@ packages:
     peerDependencies:
       hono: ^4
 
-  '@hono/node-server@2.0.6':
-    resolution: {integrity: sha512-7DeRlKG57JDBNZ5Qj2jwVdgwQy4b0tLubRLl3zCf91/rCf9i7p1V5FtW/yWibm1uUHE493ts9ZXH/7g/LQWl+g==}
+  '@hono/node-server@2.0.10':
+    resolution: {integrity: sha512-ZcnNVhKTmyDJeg0UlnZjvM73JBsTAuhrH/J4fjwGOw59PwOW51r4J+p6CsKZWXdKSme4MFqU62CZMOsdDrU4CA==}
     engines: {node: '>=20'}
     peerDependencies:
       hono: ^4
@@ -8774,7 +8774,7 @@ snapshots:
       hono: 4.12.27
     optional: true
 
-  '@hono/node-server@2.0.6(hono@4.12.27)':
+  '@hono/node-server@2.0.10(hono@4.12.27)':
     dependencies:
       hono: 4.12.27
 
