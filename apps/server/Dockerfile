@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7-labs
 FROM node:24-bookworm-slim AS base
 
 RUN apt-get update \
@@ -79,10 +80,16 @@ CMD ["tsx", "apps/server/src/index.ts"]
 
 # =========================================================================== #
 
-FROM base AS production
+FROM node:24-bookworm-slim AS production
 
-RUN addgroup --gid 1001 nodejs \
-    && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" server
+# Runtime-only image: wget for healthchecks, no git/npm from the build base.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends wget ca-certificates \
+  && update-ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+  && addgroup --gid 1001 nodejs \
+  && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" server
 
 COPY --from=builder --chown=server:nodejs /app/apps/server/.output /app/.output
 
