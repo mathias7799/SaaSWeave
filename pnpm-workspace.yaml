@@ -20,7 +20,7 @@ catalog:
   "@fontsource-variable/geist": 5.2.9
   "@fontsource-variable/geist-mono": 5.2.8
   "@fontsource/instrument-serif": 5.2.8
-  "@hono/node-server": 2.0.10
+  "@hono/node-server": 2.0.12
   "@inlang/cli": 3.1.14
   "@inlang/paraglide-js": 2.20.1
   "@lonik/oh-image": 3.3.0
@@ -133,6 +133,7 @@ minimumReleaseAgeExclude:
   - "@aws-sdk/s3-request-presigner@3.1080.0"
   - "@aws-sdk/token-providers@3.1080.0"
   - srvx@0.11.22
+  - "@hono/node-server@1.19.17"
 
 overrides:
   # @better-auth/kysely-adapter@1.7.0-rc.1 imports DEFAULT_MIGRATION_* from "kysely";
@@ -147,6 +148,20 @@ overrides:
   "esbuild@0.28.0": "0.28.1"
   "launch-editor@2.14.0": "2.14.1"
   drizzle-orm: "catalog:"
+  # Dependabot: shell-quote GHSA-395f-4hp3-45gv (DoS in parse)
+  shell-quote: 1.10.0
+  # Dependabot: fast-xml-parser GHSA-8r6m-32jq-jx6q (DOCTYPE entity limit reset)
+  fast-xml-parser: 5.10.1
+  # Dependabot: brace-expansion GHSA-3jxr-9vmj-r5cp / CVE-2026-14257
+  brace-expansion: 5.0.8
+  # Dependabot: js-yaml GHSA-52cp-r559-cp3m (merge-key chain DoS); stay on 4.x
+  js-yaml: 4.3.0
+  # Dependabot: fast-uri GHSA-4c8g-83qw-93j6 / GHSA-v2hh-gcrm-f6hx; stay on 3.x for ajv
+  fast-uri: 3.1.4
+  # Dependabot: postcss GHSA-r28c-9q8g-f849 (sourceMappingURL path traversal)
+  postcss: 8.5.23
+  # Dependabot: @hono/node-server GHSA-frvp-7c67-39w9 (serve-static Windows %5C)
+  "@hono/node-server@1.19.14": 1.19.17
 peerDependencyRules:
   allowAny:
     - vite
