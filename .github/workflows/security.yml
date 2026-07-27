@@ -122,7 +122,7 @@ jobs:
         run: node scripts/ci/docker-image-secret-scan.mjs saasweave-${{ matrix.app }}:ci
 
       - name: Trivy image scan (HIGH/CRITICAL blocking)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: saasweave-${{ matrix.app }}:ci
           format: table
