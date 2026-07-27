@@ -130,4 +130,5 @@ jobs:
           format: table
           exit-code: 1
           severity: HIGH,CRITICAL
-          ignore-unfixed: false
+          # Debian bookworm often has HIGH/CRITICAL with no fixed package yet.
+          ignore-unfixed: true

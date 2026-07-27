@@ -53,10 +53,16 @@ RUN vp run -v --filter web build
 
 # =========================================================================== #
 
-FROM base AS production
+FROM node:24-bookworm-slim AS production
 
-RUN addgroup --gid 1001 nodejs \
-    && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" web
+# Runtime-only image: wget for healthchecks, no git/npm from the build base.
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends wget ca-certificates \
+  && update-ca-certificates \
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+  && addgroup --gid 1001 nodejs \
+  && adduser --uid 1001 --ingroup nodejs --disabled-password --gecos "" web
 
 COPY --from=builder --chown=web:nodejs /app/apps/web/.output /app/.output
 
