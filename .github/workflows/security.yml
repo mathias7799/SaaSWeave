@@ -108,6 +108,8 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Build production image
+        env:
+          DOCKER_BUILDKIT: 1
         run: |
           docker build \
             -f apps/${{ matrix.app }}/Dockerfile \

@@ -133,7 +133,6 @@ minimumReleaseAgeExclude:
   - "@aws-sdk/s3-request-presigner@3.1080.0"
   - "@aws-sdk/token-providers@3.1080.0"
   - srvx@0.11.22
-  - "@hono/node-server@1.19.17"
 
 overrides:
   # @better-auth/kysely-adapter@1.7.0-rc.1 imports DEFAULT_MIGRATION_* from "kysely";
@@ -160,8 +159,10 @@ overrides:
   fast-uri: 3.1.4
   # Dependabot: postcss GHSA-r28c-9q8g-f849 (sourceMappingURL path traversal)
   postcss: 8.5.23
-  # Dependabot: @hono/node-server GHSA-frvp-7c67-39w9 (serve-static Windows %5C)
-  "@hono/node-server@1.19.14": 1.19.17
+  # Dependabot: @hono/node-server GHSA-frvp-7c67-39w9 (serve-static Windows %5C).
+  # Force MCP SDK's ^1.19.x onto catalog 2.x; serve/getRequestListener APIs match.
+  # npm advisory metadata is coarse (<2.0.5) and still flags patched 1.19.15+.
+  "@hono/node-server": "catalog:"
 peerDependencyRules:
   allowAny:
     - vite

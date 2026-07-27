@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.7
 FROM node:24-bookworm-slim AS base
 
 RUN apt-get update \
