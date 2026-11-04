@@ -23,7 +23,7 @@ async function seedConsoleBasics(seed: Awaited<ReturnType<typeof seedOrgWithOwne
   });
 }
 
-describe.sequential("console overview and features", () => {
+describe("console overview and features", () => {
   integrationIt("overview returns headline metrics for the seeded workspace", async () => {
     const seed = await seedOrgWithOwner({ organizationName: "Overview Labs" });
     await seedConsoleBasics(seed);
@@ -68,7 +68,7 @@ describe.sequential("console overview and features", () => {
   });
 });
 
-describe.sequential("console team", () => {
+describe("console team", () => {
   integrationIt("returns the seeded workspace roster for the owner", async () => {
     const seed = await seedOrgWithOwner({
       email: "ada@analytical-engines.test",

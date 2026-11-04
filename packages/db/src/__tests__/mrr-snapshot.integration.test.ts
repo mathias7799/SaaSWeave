@@ -4,7 +4,7 @@ import { listMrrSnapshots, upsertMrrSnapshot } from "@saasweave/db";
 
 import { resetDb } from "./db-harness";
 
-describe.sequential("mrr-snapshot", () => {
+describe("mrr-snapshot", () => {
   beforeEach(async () => {
     await resetDb();
   });

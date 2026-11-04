@@ -16,7 +16,7 @@ async function seedApiKeyFeature(seed: Awaited<ReturnType<typeof seedOrgWithOwne
   await seedOrganizationFeatureFlags(seed.organizationId, { api_keys: true });
 }
 
-describe.sequential("console apiKeys", () => {
+describe("console apiKeys", () => {
   integrationIt("list returns seeded keys without exposing secrets", async () => {
     const seed = await seedOrgWithOwner();
     await seedApiKeyFeature(seed);

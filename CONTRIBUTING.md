@@ -12,7 +12,7 @@ with the repository's package boundaries.
 
 ## Development setup
 
-Use Node.js `24.18.0`, pnpm `11.3.0`, and Docker Compose v2.
+Use Node.js `24.22.2`, pnpm `12.16.1`, and Docker Compose v2.
 
 ```bash
 corepack enable

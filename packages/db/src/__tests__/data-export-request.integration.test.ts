@@ -10,7 +10,7 @@ import {
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("data-export-request", () => {
+describe("data-export-request", () => {
   beforeEach(async () => {
     await resetDb();
   });

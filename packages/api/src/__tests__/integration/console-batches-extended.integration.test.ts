@@ -16,7 +16,7 @@ import {
   seedUsageIntegration
 } from "./harness";
 
-describe.sequential("console batches extended", () => {
+describe("console batches extended", () => {
   integrationIt("list and get return a created batch job", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);
@@ -68,7 +68,7 @@ describe.sequential("console batches extended", () => {
   });
 });
 
-describe.sequential("console recordUsage attribution", () => {
+describe("console recordUsage attribution", () => {
   integrationIt("records AI token attribution fields on usage events", async () => {
     const seed = await seedOrgWithOwner();
     await seedUsageIntegration(seed);
@@ -88,7 +88,7 @@ describe.sequential("console recordUsage attribution", () => {
   });
 });
 
-describe.sequential("console billing org subscription row", () => {
+describe("console billing org subscription row", () => {
   integrationIt(
     "billing uses organization subscription metadata in sample mode branches",
     async () => {

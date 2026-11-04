@@ -9,7 +9,7 @@ import {
 
 import { resetDb, seedOrgWithOwner, seedUsageEvents } from "./db-harness";
 
-describe.sequential("usage-query", () => {
+describe("usage-query", () => {
   beforeEach(async () => {
     await resetDb();
   });

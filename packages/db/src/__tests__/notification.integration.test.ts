@@ -10,7 +10,7 @@ import {
 
 import { resetDb, seedMember, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("notification", () => {
+describe("notification", () => {
   beforeEach(async () => {
     await resetDb();
   });

@@ -17,7 +17,7 @@ async function seedWebhooksFeature(seed: Awaited<ReturnType<typeof seedOrgWithOw
   await seedOrganizationFeatureFlags(seed.organizationId, { webhooks: true });
 }
 
-describe.sequential("console webhooks", () => {
+describe("console webhooks", () => {
   integrationIt("list returns an empty array before any endpoints exist", async () => {
     const seed = await seedOrgWithOwner();
     await seedWebhooksFeature(seed);

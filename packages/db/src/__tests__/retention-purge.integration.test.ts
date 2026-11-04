@@ -8,7 +8,7 @@ import { auditLog, dataExportRequest } from "@saasweave/db/schema";
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("retention purge", () => {
+describe("retention purge", () => {
   beforeEach(async () => {
     await resetDb();
   });

@@ -21,7 +21,7 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
   return createCallerFor({ seed, userRole: "admin" });
 }
 
-describe.sequential("admin analytics", () => {
+describe("admin analytics", () => {
   integrationIt("platformStats returns KPIs with empty MRR snapshots", async () => {
     const seed = await seedOrgWithOwner();
     const caller = await seedAdminCaller(seed);

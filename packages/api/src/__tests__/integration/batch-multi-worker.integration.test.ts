@@ -8,7 +8,7 @@ import { batchJobItem } from "@saasweave/db/schema";
 
 import { integrationIt, seedOrgWithOwner } from "./harness";
 
-describe.sequential("batch multi-worker correctness", () => {
+describe("batch multi-worker correctness", () => {
   integrationIt("two workers complete all items exactly once", async () => {
     const seed = await seedOrgWithOwner();
     const items = Array.from({ length: 24 }, (_, index) => {

@@ -17,9 +17,20 @@ import { CenteredLayout } from "@/widgets/layouts";
 
 const loggedErrorKeys = new Set<string>();
 
-export function DefaultErrorPage({ error, reset }: { error: Error; reset: () => void }) {
+export function DefaultErrorPage({
+  error,
+  reset
+}: {
+  error: unknown;
+  info?: { componentStack: string };
+  reset: () => void;
+}) {
   useEffect(() => {
-    const errorKey = `${error.name}:${error.message}:${error.stack ?? ""}`;
+    const normalized =
+      error instanceof Error
+        ? error
+        : new Error(typeof error === "string" ? error : "Unexpected error");
+    const errorKey = `${normalized.name}:${normalized.message}:${normalized.stack ?? ""}`;
 
     if (loggedErrorKeys.has(errorKey)) {
       return;
@@ -30,9 +41,9 @@ export function DefaultErrorPage({ error, reset }: { error: Error; reset: () => 
     log.error({
       action: "global_error_boundary",
       error: {
-        message: error.message,
-        name: error.name,
-        stack: error.stack
+        message: normalized.message,
+        name: normalized.name,
+        stack: normalized.stack
       }
     });
   }, [error]);

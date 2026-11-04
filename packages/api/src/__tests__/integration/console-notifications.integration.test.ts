@@ -45,7 +45,7 @@ async function seedNotificationRows(input: {
   return { readId, unreadId };
 }
 
-describe.sequential("console notifications", () => {
+describe("console notifications", () => {
   integrationIt("list and unreadCount reflect seeded notification rows", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);

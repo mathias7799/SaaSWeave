@@ -4,7 +4,7 @@ import { getMediaAssetByKey } from "@saasweave/db";
 
 import { resetDb, seedMediaAsset, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("media", () => {
+describe("media", () => {
   beforeEach(async () => {
     await resetDb();
   });

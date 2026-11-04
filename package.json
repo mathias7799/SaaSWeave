@@ -42,7 +42,7 @@
     "@tanstack/eslint-plugin-query": "catalog:",
     "@tanstack/eslint-plugin-router": "catalog:",
     "@typescript/native-preview": "catalog:",
-    "@vitest/coverage-v8": "4.1.10",
+    "@vitest/coverage-v8": "5.0.5",
     "eslint-plugin-fsd-lint": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
     "tsx": "catalog:",
@@ -53,5 +53,5 @@
       "@commitlint/config-conventional"
     ]
   },
-  "packageManager": "pnpm@11.3.0"
+  "packageManager": "pnpm@12.16.1"
 }

@@ -14,7 +14,7 @@ import {
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("audit", () => {
+describe("audit", () => {
   beforeEach(async () => {
     await resetDb();
   });

@@ -9,7 +9,7 @@ import {
 
 import { createCallerFor, integrationIt, seedOrgWithOwner, seedPlatformAdmin } from "./harness";
 
-describe.sequential("admin analytics beyond roster page", () => {
+describe("admin analytics beyond roster page", () => {
   integrationIt("platform totals use persisted aggregates beyond roster page size", async () => {
     const seed = await seedOrgWithOwner({ organizationName: "Analytics seed primary" });
     await seedPlatformAdmin(seed.userId);

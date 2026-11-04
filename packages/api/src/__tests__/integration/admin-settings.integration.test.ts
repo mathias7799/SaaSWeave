@@ -8,7 +8,7 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
   return createCallerFor({ seed, userRole: "admin" });
 }
 
-describe.sequential("admin settings", () => {
+describe("admin settings", () => {
   integrationIt("get returns the platform settings singleton", async () => {
     const seed = await seedOrgWithOwner();
     const caller = await seedAdminCaller(seed);

@@ -9,160 +9,159 @@ allowBuilds:
   sharp: true
 
 catalog:
-  "@babel/core": 8.0.1
-  "@better-auth/drizzle-adapter": 1.7.0-rc.1
+  "@babel/core": 8.0.10
+  "@better-auth/drizzle-adapter": 1.7.15
   "@bprogress/react": 1.2.7
-  bullmq: 5.79.3
-  "@commitlint/cli": 21.0.2
-  "@commitlint/config-conventional": 21.0.2
-  "@dotenvx/dotenvx": 2.4.1
-  "@playwright/test": 1.61.1
-  "@fontsource-variable/geist": 5.2.9
-  "@fontsource-variable/geist-mono": 5.2.8
-  "@fontsource/instrument-serif": 5.2.8
-  "@hono/node-server": 2.0.12
-  "@inlang/cli": 3.1.14
-  "@inlang/paraglide-js": 2.20.1
-  "@lonik/oh-image": 3.3.0
+  bullmq: 6.5.3
+  "@commitlint/cli": 21.2.4
+  "@commitlint/config-conventional": 21.2.4
+  "@dotenvx/dotenvx": 2.38.2
+  "@playwright/test": 1.64.1
+  "@fontsource-variable/geist": 5.3.0
+  "@fontsource-variable/geist-mono": 5.3.0
+  "@fontsource/instrument-serif": 5.3.0
+  "@hono/node-server": 2.1.5
+  "@inlang/cli": 3.4.5
+  "@inlang/paraglide-js": 2.29.3
+  "@lonik/oh-image": 3.5.0
   "@mdx-js/rollup": 3.1.1
-  "@orpc/client": 1.14.6
-  "@orpc/json-schema": 1.14.6
-  "@orpc/openapi": 1.14.6
-  "@orpc/server": 1.14.6
-  "@orpc/tanstack-query": 1.14.6
-  "@orpc/zod": 1.14.6
-  "@paper-design/shaders-react": 0.0.76
-  "react-email": 6.7.0
-  "@rolldown/plugin-babel": 0.2.3
+  "@orpc/client": 1.16.1
+  "@orpc/json-schema": 1.16.1
+  "@orpc/openapi": 1.16.1
+  "@orpc/server": 1.16.1
+  "@orpc/tanstack-query": 1.16.1
+  "@orpc/zod": 1.16.1
+  "@paper-design/shaders-react": 0.0.82
+  "react-email": 6.11.6
+  "@rolldown/plugin-babel": 0.2.4
   "@t3-oss/env-core": 0.13.11
-  "@tailwindcss/vite": 4.3.1
-  "@tanstack/devtools-a11y": 0.1.5
-  "@tanstack/devtools-vite": 0.8.0
-  "@tanstack/eslint-plugin-query": 5.101.0
+  "@tailwindcss/vite": 4.3.3
+  "@tanstack/devtools-a11y": 0.2.3
+  "@tanstack/devtools-vite": 0.8.6
+  "@tanstack/eslint-plugin-query": 5.105.1
   "@tanstack/eslint-plugin-router": 1.162.0
-  "@tanstack/react-devtools": 0.10.7
-  "@tanstack/react-form": 1.33.0
-  "@tanstack/react-form-devtools": 0.2.29
-  "@tanstack/react-query": 5.101.0
-  "@tanstack/react-query-devtools": 5.101.0
-  "@tanstack/react-query-persist-client": 5.101.0
-  "@tanstack/react-router": 1.170.16
-  "@tanstack/react-router-devtools": 1.167.0
-  "@tanstack/react-router-ssr-query": 1.167.1
-  "@tanstack/react-start": 1.168.26
+  "@tanstack/react-devtools": 0.10.14
+  "@tanstack/react-form": 1.33.5
+  "@tanstack/react-form-devtools": 0.2.34
+  "@tanstack/react-query": 5.105.1
+  "@tanstack/react-query-devtools": 5.105.1
+  "@tanstack/react-query-persist-client": 5.105.1
+  "@tanstack/react-router": 1.170.46
+  "@tanstack/react-router-devtools": 1.167.2
+  "@tanstack/react-router-ssr-query": 1.167.3
+  "@tanstack/react-start": 1.169.4
   "@types/babel__core": 7.20.5
   "@types/mdx": 2.0.14
-  "@types/node": 25.9.3
-  "@types/nodemailer": 8.0.1
-  "@types/react": 19.2.17
-  "@types/react-dom": 19.2.3
-  "@typescript/native-preview": 7.0.0-dev.20260623.1
-  "@vitejs/plugin-react": 6.0.2
+  "@types/node": 24.19.2
+  "@types/nodemailer": 8.0.2
+  "@types/react": 19.3.0
+  "@types/react-dom": 19.3.0
+  "@typescript/native-preview": 7.0.0-dev.20260707.2
+  "@vitejs/plugin-react": 6.1.2
   babel-plugin-react-compiler: 1.0.0
-  better-auth: 1.7.0-rc.1
-  "@better-auth/sso": 1.7.0-rc.1
-  files-sdk: 2.1.0
-  "@aws-sdk/client-s3": 3.1080.0
-  "@aws-sdk/lib-storage": 3.1080.0
-  "@aws-sdk/s3-presigned-post": 3.1080.0
-  "@aws-sdk/s3-request-presigner": 3.1080.0
+  better-auth: 1.7.15
+  "@better-auth/sso": 1.7.15
+  files-sdk: 3.1.2
+  "@aws-sdk/client-s3": 3.1161.0
+  "@aws-sdk/lib-storage": 3.1161.0
+  "@aws-sdk/s3-presigned-post": 3.1161.0
+  "@aws-sdk/s3-request-presigner": 3.1161.0
   class-variance-authority: 0.7.1
   clsx: 2.1.1
   cross-env: 10.1.0
   defu: 6.1.7
-  drizzle-kit: 1.0.0-rc.4-ca0f029
-  drizzle-orm: 1.0.0-rc.4-5d5b77c
+  drizzle-kit: 1.0.0-rc.5
+  drizzle-orm: 1.0.0-rc.5
   eslint-plugin-fsd-lint: 1.2.1
   eslint-plugin-react-hooks: 7.1.1
-  evlog: 2.19.2
-  hono: 4.12.27
-  ioredis: 5.11.1
-  prom-client: 15.1.3
+  evlog: 2.34.0
+  hono: 4.13.16
+  ioredis: 6.0.0
+  "@prometheus-io/client": 0.16.1
   localforage: 1.10.0
-  lucide-react: 1.21.0
+  lucide-react: 1.66.0
   next-themes: 0.4.6
-  nodemailer: 9.0.3
-  nitro: npm:nitro-nightly@3.0.1-20260128-211656-ae83c97e
-  postgres: 3.4.9
-  radix-ui: 1.6.0
-  react: 19.2.7
-  react-dom: 19.2.7
-  react-icons: 5.6.0
-  sharp: 0.35.2
-  resend: 6.17.1
-  sonner: 2.0.7
-  std-env: 4.1.0
-  stripe: 18.5.0
-  tailwind-merge: 3.6.0
-  tailwindcss: 4.3.1
-  tsx: 4.22.4
+  nodemailer: 10.3.1
+  nitro: npm:nitro-nightly@3.0.1-20261101-051726-294bddeb
+  postgres: 4.0.0
+  radix-ui: 1.8.1
+  react: 19.3.1
+  react-dom: 19.3.1
+  react-icons: 5.7.0
+  sharp: 0.35.5
+  resend: 6.37.0
+  sonner: 2.0.8
+  std-env: 4.3.0
+  stripe: 23.1.0
+  tailwind-merge: 3.7.0
+  tailwindcss: 4.3.3
+  tsx: 4.23.15
   tw-animate-css: 1.4.0
-  typescript: 6.0.3
-  vite: npm:@voidzero-dev/vite-plus-core@0.2.4
-  vite-plus: 0.2.4
-  zod: 4.4.3
+  typescript: 7.0.2
+  vite: npm:@voidzero-dev/vite-plus-core@1.4.0
+  vite-plus: 1.4.0
+  zod: 4.6.7
 
 catalogMode: prefer
 
 minimumReleaseAgeExclude:
-  - "@voidzero-dev/vite-plus-core@0.2.4"
-  - "@voidzero-dev/vite-plus-darwin-arm64@0.2.4"
-  - "@voidzero-dev/vite-plus-darwin-x64@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-arm64-gnu@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-arm64-musl@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-x64-gnu@0.2.4"
-  - "@voidzero-dev/vite-plus-linux-x64-musl@0.2.4"
-  - "@voidzero-dev/vite-plus-win32-arm64-msvc@0.2.4"
-  - "@voidzero-dev/vite-plus-win32-x64-msvc@0.2.4"
-  - vite-plus@0.2.4
-  - bullmq@5.79.3
-  - "@aws-sdk/checksums@3.1000.13"
-  - "@aws-sdk/client-s3@3.1080.0"
-  - "@aws-sdk/core@3.974.28"
-  - "@aws-sdk/credential-provider-env@3.972.54"
-  - "@aws-sdk/credential-provider-http@3.972.56"
-  - "@aws-sdk/credential-provider-ini@3.972.61"
-  - "@aws-sdk/credential-provider-login@3.972.60"
-  - "@aws-sdk/credential-provider-node@3.972.63"
-  - "@aws-sdk/credential-provider-process@3.972.54"
-  - "@aws-sdk/credential-provider-sso@3.972.60"
-  - "@aws-sdk/credential-provider-web-identity@3.972.60"
-  - "@aws-sdk/middleware-sdk-s3@3.972.59"
-  - "@aws-sdk/nested-clients@3.997.28"
-  - "@aws-sdk/s3-presigned-post@3.1080.0"
-  - "@aws-sdk/s3-request-presigner@3.1080.0"
-  - "@aws-sdk/token-providers@3.1080.0"
+  - "@voidzero-dev/vite-plus-core@1.4.0"
+  - "@voidzero-dev/vite-plus-darwin-arm64@1.4.0"
+  - "@voidzero-dev/vite-plus-darwin-x64@1.4.0"
+  - "@voidzero-dev/vite-plus-linux-arm64-gnu@1.4.0"
+  - "@voidzero-dev/vite-plus-linux-arm64-musl@1.4.0"
+  - "@voidzero-dev/vite-plus-linux-x64-gnu@1.4.0"
+  - "@voidzero-dev/vite-plus-linux-x64-musl@1.4.0"
+  - "@voidzero-dev/vite-plus-win32-arm64-msvc@1.4.0"
+  - "@voidzero-dev/vite-plus-win32-x64-msvc@1.4.0"
+  - vite-plus@1.4.0
+  - bullmq@6.5.3
   - srvx@0.11.22
+  - ip-address@10.7.6
 
 overrides:
-  # @better-auth/kysely-adapter@1.7.0-rc.1 imports DEFAULT_MIGRATION_* from "kysely";
-  # kysely 0.29 moved those exports to "kysely/migration". Pin until better-auth ships the fix.
-  kysely: 0.28.17
+  # better-auth 1.7.15 accepts kysely 0.28 and 0.29. One 0.29 compiler for every adapter.
+  kysely: 0.29.8
   vite: "catalog:"
-  # Vitest and TanStack still resolve standalone vite@8.x; patch GHSA-fx2h-pf6j-xcff.
-  "vite@8.0.14": "8.0.16"
-  "vite@8.0.15": "8.0.16"
-  "undici@7.26.0": "7.28.0"
+  # Standalone vite@8 through 8.1.5 is still flagged (launch-editor / fs.allow advisories).
+  "vite@>=8.0.0 <8.1.6": "8.3.5"
+  # nitro-nightly depends on undici 7. 7.30.1 is the patched release; undici 8 is a breaking major.
+  "undici@7": "7.30.1"
+  # nitro-nightly depends on srvx ^0.10.1. 0.11 keeps that serve API.
   "srvx@0.10.1": "0.11.22"
-  "esbuild@0.28.0": "0.28.1"
-  "launch-editor@2.14.0": "2.14.1"
+  "esbuild@0.28.0": "0.28.2"
+  "launch-editor@<=2.14.1": "2.14.2"
   drizzle-orm: "catalog:"
-  # Dependabot: shell-quote GHSA-395f-4hp3-45gv (DoS in parse)
-  shell-quote: 1.10.0
-  # Dependabot: fast-xml-parser GHSA-8r6m-32jq-jx6q (DOCTYPE entity limit reset)
-  fast-xml-parser: 5.10.1
-  # Dependabot: brace-expansion GHSA-3jxr-9vmj-r5cp / CVE-2026-14257
-  brace-expansion: 5.0.8
-  # Dependabot: js-yaml GHSA-52cp-r559-cp3m (merge-key chain DoS); stay on 4.x
-  js-yaml: 4.3.0
-  # Dependabot: fast-uri GHSA-4c8g-83qw-93j6 / GHSA-v2hh-gcrm-f6hx; stay on 3.x for ajv
-  fast-uri: 3.1.4
-  # Dependabot: postcss GHSA-r28c-9q8g-f849 (sourceMappingURL path traversal)
-  postcss: 8.5.23
-  # Dependabot: @hono/node-server GHSA-frvp-7c67-39w9 (serve-static Windows %5C).
-  # Force MCP SDK's ^1.19.x onto catalog 2.x; serve/getRequestListener APIs match.
-  # npm advisory metadata is coarse (<2.0.5) and still flags patched 1.19.15+.
+  shell-quote: 1.12.0
+  fast-xml-parser: 5.11.2
+  brace-expansion: 5.0.12
+  # js-yaml 5 changes load(). cosmiconfig and xmlbuilder2 stay on 4.x; 4.3.2 has the merge-key fixes.
+  js-yaml: 4.3.2
+  # ajv imports fast-uri 3. 3.1.9 has the host-confusion fixes.
+  fast-uri: 3.1.9
+  postcss: 8.5.32
+  # Catalog 2.1.5 includes the serveStatic second-decode fix (GHSA-rmxm-3fg6-px4f).
   "@hono/node-server": "catalog:"
+  # files-sdk and the MCP SDK peer an older hono. Catalog 4.13.16 clears the 4.13.x advisories.
+  hono: "catalog:"
+  # TanStack router-core allows seroval ^1.6.7, which still includes the pre-1.6.8 advisories.
+  seroval: 1.7.6
+  "@xmldom/xmldom@<=0.8.14": 0.8.15
+  ip-address: 10.7.6
+  "qs@6": 6.17.1
+  "body-parser@>=2.0.0 <2.4.0": 2.4.0
+  "proxy-addr@<2.0.8": 2.0.8
+  "nanoid@>=3.0.0 <3.3.18": 3.3.20
+  browserslist: 4.29.5
+  baseline-browser-mapping: 2.11.35
+  decode-uri-component: 0.5.1
+  "socket.io-parser@<4.2.7": 4.2.7
+  "engine.io@>=6.0.0 <6.6.11": 6.6.11
+  "source-map-js@<1.2.2": 1.2.2
+  "minimatch@<11.0.1": 11.0.4
+  "glob@>=9.0.0 <=14.0.1": 14.0.3
+  tinypool: 2.2.0
+
 peerDependencyRules:
   allowAny:
     - vite

@@ -1,17 +1,14 @@
 # Time-bounded supply-chain exceptions
 
-Last updated: 2026-07-11
+Last updated: 2026-11-04
 
 ## Pre-release framework pins
 
-| Package                        | Pin                              | Review by  | Rationale                                                         | Mitigation                                                 |
-| ------------------------------ | -------------------------------- | ---------- | ----------------------------------------------------------------- | ---------------------------------------------------------- |
-| `better-auth`                  | `1.7.0-rc.1`                     | 2026-10-01 | Stable 1.7 not yet published; SSO + drizzle adapter aligned on rc | Catalog pin, `minimumReleaseAgeExclude`, integration tests |
-| `@better-auth/drizzle-adapter` | `1.7.0-rc.1`                     | 2026-10-01 | Same train as better-auth                                         | Same                                                       |
-| `@better-auth/sso`             | `1.7.0-rc.1`                     | 2026-10-01 | Same train as better-auth                                         | Same                                                       |
-| `drizzle-orm` / `drizzle-kit`  | `1.0.0-rc.4-*`                   | 2026-10-01 | Drizzle 1.0 stable pending                                        | Migrations + integration tests                             |
-| `nitro`                        | `nitro-nightly@3.0.1-20260128-*` | 2026-10-01 | TanStack Start requires Nitro 3 nightly APIs                      | Pin exact nightly hash in catalog                          |
-| `@typescript/native-preview`   | `7.0.0-dev.*`                    | 2026-10-01 | Vite Plus type-aware oxlint uses native TS preview                | Dev-only; `typescript@6.0.3` for emit                      |
+| Package                       | Pin                                     | Review by  | Rationale                                                                                       | Mitigation                         |
+| ----------------------------- | --------------------------------------- | ---------- | ----------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `drizzle-orm` / `drizzle-kit` | `1.0.0-rc.5`                            | 2027-02-04 | Drizzle 1.0 stable is still unpublished (`latest` remains 0.45.x)                               | Migrations + integration tests     |
+| `nitro`                       | `nitro-nightly@3.0.1-20261101-051726-*` | 2027-02-04 | TanStack Start still requires Nitro 3 nightly APIs; the `nitro` dist-tag is a release candidate | Pin exact nightly hash in catalog  |
+| `@typescript/native-preview`  | `7.0.0-dev.20260707.2`                  | 2027-02-04 | Vite Plus type-aware oxlint still peers the native TypeScript preview                           | Dev-only; `typescript@7.0.2` emits |
 
 ## Audit allowlist
 
@@ -32,4 +29,4 @@ framework-pin table above and rejects stale or malformed rows through
 
 ## Node runtime
 
-Production Docker images and CI use **Node 24 Active LTS** (`.node-version`). Node 25 is not used in production paths.
+Production Docker images and CI use **Node 24** (`.node-version`, currently 24.22.2). Node 25 is not used in production paths.

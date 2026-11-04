@@ -4,7 +4,7 @@ import { getPlatformSettings, getPublicPlatformSettings } from "@saasweave/db";
 
 import { resetDb } from "./db-harness";
 
-describe.sequential("platform-settings", () => {
+describe("platform-settings", () => {
   beforeEach(async () => {
     await resetDb();
   });

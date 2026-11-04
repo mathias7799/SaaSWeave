@@ -10,7 +10,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("requireFeature auth matrix", () => {
+describe("requireFeature auth matrix", () => {
   integrationIt(
     "console.aiUsage is blocked when ai_assistant is disabled (FORBIDDEN)",
     async () => {

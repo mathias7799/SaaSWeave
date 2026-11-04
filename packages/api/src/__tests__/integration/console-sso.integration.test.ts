@@ -9,7 +9,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("console sso", () => {
+describe("console sso", () => {
   integrationIt("list returns an empty array when sso is disabled", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);

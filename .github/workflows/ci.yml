@@ -21,29 +21,23 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U ci -d ci"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "pg_isready -U ci -d ci" --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
         image: redis:8-alpine
         ports:
           - 6379:6379
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       REDIS_URL: redis://localhost:6379/15
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          version: 11.3.0
+          version: 12.16.1
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -113,32 +107,26 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d saasweave_test"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "pg_isready -U postgres -d saasweave_test" --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
         image: redis:8-alpine
         ports:
           - 6379:6379
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       NODE_ENV: development
       DATABASE_URL: postgresql://postgres:changeme@localhost:5432/saasweave_test
       REDIS_URL: redis://localhost:6379/1
       BETTER_AUTH_SECRET: ci-placeholder-secret-not-used-in-prod-000000
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          version: 11.3.0
+          version: 12.16.1
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -158,8 +146,7 @@ jobs:
       # streaming memory bound once without instrumentation; API correctness coverage runs above.
       - name: Streaming export memory bound
         run: >-
-          pnpm --filter @saasweave/api run test:integration --
-          --run src/__tests__/integration/data-export-large.integration.test.ts
+          pnpm --filter @saasweave/api run test:integration -- --run src/__tests__/integration/data-export-large.integration.test.ts
         env:
           NODE_OPTIONS: --expose-gc
 
@@ -184,19 +171,13 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd "pg_isready -U postgres -d saasweave_e2e"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "pg_isready -U postgres -d saasweave_e2e" --health-interval 10s --health-timeout 5s --health-retries 5
       redis:
         image: redis:8-alpine
         ports:
           - 6379:6379
         options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
     env:
       NODE_ENV: development
       CI: true
@@ -209,13 +190,13 @@ jobs:
       E2E_SERVER_URL: http://127.0.0.1:5000/server
       REQUIRE_EMAIL_VERIFICATION: "false"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
-          version: 11.3.0
+          version: 12.16.1
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .node-version
           cache: pnpm
@@ -236,7 +217,7 @@ jobs:
 
       - name: Upload Playwright report
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: apps/web/playwright-report/
@@ -244,7 +225,7 @@ jobs:
 
       - name: Upload Playwright traces
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: playwright-test-results
           path: apps/web/test-results/

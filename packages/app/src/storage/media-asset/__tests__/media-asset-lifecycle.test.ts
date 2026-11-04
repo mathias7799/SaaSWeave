@@ -127,7 +127,7 @@ describe("media upload lifecycle", () => {
     mocks.deleteWhere.mockResolvedValue(undefined);
     mocks.fileDelete.mockResolvedValue(undefined);
     mocks.fileExists.mockResolvedValue(true);
-    mocks.fileHead.mockResolvedValue({ size: PNG_BYTES.byteLength, type: "image/png" });
+    mocks.fileHead.mockResolvedValue({ contentType: "image/png", size: PNG_BYTES.byteLength });
     mocks.fileSignedUploadUrl.mockResolvedValue({ method: "PUT", url: "https://storage.test/put" });
     mocks.getFilesClient.mockReturnValue(null);
     mocks.insertValues.mockResolvedValue(undefined);
@@ -228,11 +228,14 @@ describe("media upload lifecycle", () => {
     await expect(
       completeMediaAssetUpload({ assetId: "asset-1", ownerId: "user-1" })
     ).resolves.toBeNull();
-    mocks.fileHead.mockResolvedValueOnce({ size: PNG_BYTES.byteLength, type: "image/jpeg" });
+    mocks.fileHead.mockResolvedValueOnce({
+      contentType: "image/jpeg",
+      size: PNG_BYTES.byteLength
+    });
     await expect(
       completeMediaAssetUpload({ assetId: "asset-1", ownerId: "user-1" })
     ).resolves.toBeNull();
-    mocks.fileHead.mockResolvedValueOnce({ size: 2_000_001, type: "image/png" });
+    mocks.fileHead.mockResolvedValueOnce({ contentType: "image/png", size: 2_000_001 });
     await expect(
       completeMediaAssetUpload({ assetId: "asset-1", ownerId: "user-1" })
     ).resolves.toBeNull();

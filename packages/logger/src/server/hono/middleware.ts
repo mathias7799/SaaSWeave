@@ -17,7 +17,7 @@ import {
   SERVER_OWNED_LOG_FIELDS
 } from "#@/server/ingest/sanitize";
 
-const VALID_LEVELS = new Set<LogLevel>(["info", "error", "warn", "debug"]);
+const VALID_LEVELS = new Set<LogLevel>(["info", "error", "warn", "debug", "fatal", "trace"]);
 
 /**
  * Hono app variables added by `honoLoggerMiddleware()`.
@@ -202,6 +202,12 @@ function emitClientLog(payload: DrainContext, context: EmitClientLogContext) {
       return;
     case "error":
       log.error(clientEvent);
+      return;
+    case "fatal":
+      log.fatal(clientEvent);
+      return;
+    case "trace":
+      log.trace(clientEvent);
       return;
     case "warn":
       log.warn(clientEvent);

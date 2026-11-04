@@ -14,9 +14,9 @@
     "test:unit": "vp test"
   },
   "dependencies": {
+    "@prometheus-io/client": "catalog:",
     "@saasweave/env": "workspace:*",
-    "hono": "catalog:",
-    "prom-client": "catalog:"
+    "hono": "catalog:"
   },
   "devDependencies": {
     "@saasweave/tsconfig": "workspace:*",

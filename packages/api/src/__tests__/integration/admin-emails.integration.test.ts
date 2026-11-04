@@ -10,7 +10,7 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
   return createCallerFor({ seed, userRole: "admin" });
 }
 
-describe.sequential("admin emails", () => {
+describe("admin emails", () => {
   integrationIt("deliveries returns an empty list before any sends", async () => {
     const seed = await seedOrgWithOwner();
     const caller = await seedAdminCaller(seed);

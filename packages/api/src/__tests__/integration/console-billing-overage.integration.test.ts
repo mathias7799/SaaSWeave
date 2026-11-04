@@ -14,7 +14,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("console billing usage overage", () => {
+describe("console billing usage overage", () => {
   integrationIt("billing estimate includes usage overage for high api call volume", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId, "scale");

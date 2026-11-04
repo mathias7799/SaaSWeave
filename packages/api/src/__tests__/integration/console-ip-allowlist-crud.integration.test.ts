@@ -16,7 +16,7 @@ async function seedAllowlistFeature(seed: Awaited<ReturnType<typeof seedOrgWithO
   await seedOrganizationFeatureFlags(seed.organizationId, { ip_allowlist: true });
 }
 
-describe.sequential("console ipAllowlist CRUD", () => {
+describe("console ipAllowlist CRUD", () => {
   integrationIt("create adds a rule and list returns it", async () => {
     const seed = await seedOrgWithOwner();
     await seedAllowlistFeature(seed);

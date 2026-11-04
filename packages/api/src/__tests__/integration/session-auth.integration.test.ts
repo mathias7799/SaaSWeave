@@ -10,7 +10,7 @@ import {
   seedPlatformAdmin
 } from "./harness";
 
-describe.sequential("session auth matrix", () => {
+describe("session auth matrix", () => {
   integrationIt("console.overview rejects callers without a session (UNAUTHORIZED)", async () => {
     const seed = await seedOrgWithOwner();
     const caller = await createCallerFor({ seed, session: null });

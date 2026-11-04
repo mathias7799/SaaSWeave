@@ -11,7 +11,7 @@ import {
   seedUsageIntegration
 } from "./harness";
 
-describe.sequential("console billing (sample mode)", () => {
+describe("console billing (sample mode)", () => {
   integrationIt("billing returns sample data with stripe disabled", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId, "scale");

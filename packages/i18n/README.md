@@ -40,8 +40,9 @@ None in this package; web uses `VITE_WEB_URL` for locale URL generation.
 We have to create a `src/server.ts` file with the following content:
 
 ```ts
-import { paraglideMiddleware } from "@saasweave/i18n/server";
 import handler from "@tanstack/react-start/server-entry";
+
+import { paraglideMiddleware } from "@saasweave/i18n/server";
 
 export default {
   fetch(req: Request): Promise<Response> {

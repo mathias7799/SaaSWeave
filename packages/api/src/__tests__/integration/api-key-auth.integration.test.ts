@@ -12,7 +12,7 @@ import {
 
 const usagePayload = { metric: "api_calls" as const, quantity: 1 };
 
-describe.sequential("API key auth matrix", () => {
+describe("API key auth matrix", () => {
   integrationIt(
     "console.recordUsage rejects callers without session or API key (UNAUTHORIZED)",
     async () => {

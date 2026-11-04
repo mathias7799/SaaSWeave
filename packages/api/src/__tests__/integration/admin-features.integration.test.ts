@@ -16,7 +16,7 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
   return createCallerFor({ seed, userRole: "admin" });
 }
 
-describe.sequential("admin features and plans", () => {
+describe("admin features and plans", () => {
   integrationIt("features.list returns catalog entries with adoption stats", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId, "growth");

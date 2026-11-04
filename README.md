@@ -88,8 +88,8 @@ dependencies.
 ### Prerequisites
 
 - Docker with Compose v2
-- Node.js `24.18.0` for repository utilities
-- pnpm `11.3.0`
+- Node.js `24.22.2` for repository utilities
+- pnpm `12.16.1`
 
 ```bash
 corepack enable
