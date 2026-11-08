@@ -9,7 +9,7 @@ import { db } from "@saasweave/db";
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("stripe-webhook", () => {
+describe("stripe-webhook", () => {
   beforeEach(async () => {
     await resetDb();
   });

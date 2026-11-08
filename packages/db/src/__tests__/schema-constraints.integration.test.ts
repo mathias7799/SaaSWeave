@@ -17,7 +17,7 @@ async function getViolatedConstraint(operation: Promise<unknown>): Promise<strin
   }
 }
 
-describe.sequential("persisted domain constraints", () => {
+describe("persisted domain constraints", () => {
   beforeEach(async () => {
     await resetDb();
   });

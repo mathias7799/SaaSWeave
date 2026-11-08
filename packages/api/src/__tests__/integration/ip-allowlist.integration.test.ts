@@ -11,7 +11,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("IP allowlist auth matrix", () => {
+describe("IP allowlist auth matrix", () => {
   async function seedAllowlistedOrg() {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);

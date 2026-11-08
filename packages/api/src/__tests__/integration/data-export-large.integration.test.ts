@@ -28,7 +28,7 @@ function collectGarbage(): void {
   globalThis.gc?.();
 }
 
-describe.sequential("large streaming data export", () => {
+describe("large streaming data export", () => {
   integrationIt("streams a seeded workspace export with bounded memory growth", async () => {
     const seed = await seedOrgWithOwner({ organizationName: "Large export workspace" });
     const now = new Date();

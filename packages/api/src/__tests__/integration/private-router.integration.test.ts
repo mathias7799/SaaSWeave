@@ -3,7 +3,7 @@ import { describe } from "vite-plus/test";
 
 import { createCallerFor, expectOrpcError, integrationIt, seedOrgWithOwner } from "./harness";
 
-describe.sequential("private router", () => {
+describe("private router", () => {
   integrationIt("private.data returns NOT_IMPLEMENTED outside production", async () => {
     const seed = await seedOrgWithOwner();
     const caller = await createCallerFor({ seed });

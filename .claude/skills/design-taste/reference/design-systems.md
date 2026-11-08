@@ -199,10 +199,10 @@ Before importing ANY 3rd-party library, check `package.json`. If the package is 
 
 ```tsx
 "use client";
-import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "motion/react";
+import { useRef, useEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -261,10 +261,10 @@ Critical points: `start: "top top"`, `pin: true`, every card except the last is 
 
 ```tsx
 "use client";
-import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "motion/react";
+import { useRef, useEffect } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 

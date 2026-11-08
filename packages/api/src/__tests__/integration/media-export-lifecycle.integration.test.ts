@@ -27,7 +27,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("media and export lifecycle", () => {
+describe("media and export lifecycle", () => {
   integrationIt("member cannot authorize export download (FORBIDDEN)", async () => {
     const seed = await seedOrgWithOwner({ role: "member" });
     await seedOrganizationPlan(seed.organizationId);

@@ -26,7 +26,8 @@ function isAllowedLicense(license) {
   return allowed.has(normalized.toUpperCase());
 }
 
-const raw = execSync("pnpm licenses list --prod --json", {
+// Root `--prod` on pnpm 12 ignores dependencies of workspace packages.
+const raw = execSync("pnpm licenses list --prod --recursive --json", {
   cwd: root,
   encoding: "utf8",
   stdio: ["ignore", "pipe", "pipe"]

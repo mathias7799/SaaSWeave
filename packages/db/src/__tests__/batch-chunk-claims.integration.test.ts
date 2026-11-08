@@ -7,7 +7,7 @@ import { claimBatchJobItems, createBatchJobWithItems } from "@saasweave/db";
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("batch chunk claims", () => {
+describe("batch chunk claims", () => {
   beforeEach(async () => {
     await resetDb();
   });

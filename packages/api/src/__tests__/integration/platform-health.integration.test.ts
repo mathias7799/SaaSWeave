@@ -3,7 +3,7 @@ import { describe, expect } from "vite-plus/test";
 
 import { createCallerFor, integrationIt } from "./harness";
 
-describe.sequential("platform and health routers", () => {
+describe("platform and health routers", () => {
   integrationIt("platform.plans returns the public plan catalog", async () => {
     const caller = await createCallerFor({
       seed: {

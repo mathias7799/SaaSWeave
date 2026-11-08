@@ -14,7 +14,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("console.batches", () => {
+describe("console.batches", () => {
   integrationIt("create is blocked when batch_jobs is disabled (FORBIDDEN)", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);

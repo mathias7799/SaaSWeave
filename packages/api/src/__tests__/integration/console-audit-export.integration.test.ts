@@ -11,7 +11,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("console audit export formats", () => {
+describe("console audit export formats", () => {
   integrationIt("exports audit rows as CSV when audit_export is enabled", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId, "scale");

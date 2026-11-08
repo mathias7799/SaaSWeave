@@ -4,7 +4,7 @@ import { isFeatureGloballyEnabled } from "@saasweave/db";
 
 import { resetDb, seedFeatureFlag } from "./db-harness";
 
-describe.sequential("features", () => {
+describe("features", () => {
   beforeEach(async () => {
     await resetDb();
   });

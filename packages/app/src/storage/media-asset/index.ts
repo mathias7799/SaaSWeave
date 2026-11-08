@@ -210,7 +210,7 @@ export async function completeMediaAssetUpload(input: {
     const head = await files.head(row.key).catch(() => null);
     if (!head) return null;
 
-    const actualType = normalizeContentType(head.type ?? "");
+    const actualType = normalizeContentType(head.contentType ?? "");
     const expectedType = normalizeContentType(row.contentType);
     if (!actualType || actualType !== expectedType) return null;
 

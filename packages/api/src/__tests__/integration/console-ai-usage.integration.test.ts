@@ -39,7 +39,7 @@ async function seedAiUsageEvents(organizationId: string): Promise<void> {
   ]);
 }
 
-describe.sequential("console aiUsage", () => {
+describe("console aiUsage", () => {
   integrationIt("returns empty analytics when no usage events exist", async () => {
     const seed = await seedOrgWithOwner();
     await seedOrganizationPlan(seed.organizationId);

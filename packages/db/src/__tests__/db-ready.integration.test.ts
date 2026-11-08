@@ -4,7 +4,7 @@ import { checkIsDbReady } from "@saasweave/db";
 
 import { resetDb } from "./db-harness";
 
-describe.sequential("db readiness", () => {
+describe("db readiness", () => {
   beforeEach(async () => {
     await resetDb();
   });

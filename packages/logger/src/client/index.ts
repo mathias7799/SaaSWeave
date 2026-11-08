@@ -102,7 +102,7 @@ export const log = {
   error: withIdentity(errorLogMethod),
   info: withIdentity(infoLogMethod),
   warn: withIdentity(warnLogMethod)
-} satisfies typeof evlogLog;
+};
 
 /**
  * Attach user/session context to future browser log events.

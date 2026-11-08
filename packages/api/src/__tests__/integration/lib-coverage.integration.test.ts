@@ -45,7 +45,7 @@ function subscriptionEvent(input: {
   } as unknown as Stripe.Event;
 }
 
-describe.sequential("stripe webhook handlers", () => {
+describe("stripe webhook handlers", () => {
   integrationIt("applyStripeWebhookEvent updates organization subscription state", async () => {
     const seed = await seedOrgWithOwner();
     const customerId = `cus_${randomUUID().slice(0, 8)}`;

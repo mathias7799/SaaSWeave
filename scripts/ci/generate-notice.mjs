@@ -13,7 +13,8 @@ const policy = JSON.parse(readFileSync(join(root, ".github/approved-licenses.jso
 const copyleftAttribution = new Map(
   (policy.copyleftAttributions ?? []).map((entry) => [entry.package, entry])
 );
-const raw = execSync("pnpm licenses list --prod --json", {
+// Root `--prod` on pnpm 12 ignores dependencies of workspace packages.
+const raw = execSync("pnpm licenses list --prod --recursive --json", {
   cwd: root,
   encoding: "utf8"
 });

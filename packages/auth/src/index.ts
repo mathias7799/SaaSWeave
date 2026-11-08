@@ -89,9 +89,11 @@ export const auth = betterAuth({
       : {})
   },
 
-  experimental: {
-    // https://www.better-auth.com/docs/adapters/drizzle#joins-experimental
-    joins: true
+  advanced: {
+    database: {
+      // https://www.better-auth.com/docs/adapters/drizzle#joins
+      joins: true
+    }
   },
 
   databaseHooks: {

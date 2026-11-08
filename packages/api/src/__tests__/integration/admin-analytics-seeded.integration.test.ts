@@ -20,7 +20,7 @@ async function seedAdminCaller(seed: Awaited<ReturnType<typeof seedOrgWithOwner>
   return createCallerFor({ seed, userRole: "admin" });
 }
 
-describe.sequential("admin analytics seeded", () => {
+describe("admin analytics seeded", () => {
   integrationIt("platformStats aggregates usage and multiple workspaces", async () => {
     const seed = await seedOrgWithOwner({ organizationName: "Primary workspace" });
     const secondary = await seedOrgWithOwner({ organizationName: "Secondary workspace" });

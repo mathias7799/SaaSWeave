@@ -15,7 +15,7 @@ import { resetDb, seedOrgWithOwner } from "./db-harness";
 
 const PUBLIC_WEBHOOK_URL = "https://example.com/webhooks/integration";
 
-describe.sequential("webhooks", () => {
+describe("webhooks", () => {
   beforeEach(async () => {
     await resetDb();
   });

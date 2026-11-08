@@ -17,6 +17,20 @@ function mapInvoiceStatus(
   return "past_due";
 }
 
+function mapSubscriptionStatus(
+  status: string
+): NonNullable<BillingResponse["subscription"]>["status"] {
+  if (
+    status === "active" ||
+    status === "canceled" ||
+    status === "past_due" ||
+    status === "trialing"
+  ) {
+    return status;
+  }
+  return "canceled";
+}
+
 function round(value: number, digits = 2): number {
   const factor = 10 ** digits;
   return Math.round(value * factor) / factor;
@@ -75,13 +89,7 @@ export async function fetchStripeBillingDetails(
             : new Date().toISOString(),
           seats: subscription.items.data[0]?.quantity ?? 1,
           startedOn: new Date(subscription.start_date * 1000).toISOString(),
-          status:
-            subscription.status === "trialing" ||
-            subscription.status === "active" ||
-            subscription.status === "past_due" ||
-            subscription.status === "canceled"
-              ? subscription.status
-              : "canceled"
+          status: mapSubscriptionStatus(subscription.status)
         }
       : undefined
   };

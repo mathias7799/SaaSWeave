@@ -93,8 +93,9 @@ Common causes:
 Prefer global error handling over per-catch logging in request code. In Hono, register one `app.onError` handler, log the thrown value with the request-scoped logger, parse it, then return a structured response.
 
 ```ts
-import { parseError } from "@saasweave/logger/server";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
+
+import { parseError } from "@saasweave/logger/server";
 
 app.onError((error, c) => {
   c.get("log").error(error);

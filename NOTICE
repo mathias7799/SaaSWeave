@@ -44,7 +44,6 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @babel/template — MIT
 @babel/traverse — MIT
 @babel/types — MIT
-@bcoe/v8-coverage — MIT
 @better-auth/core — MIT
 @better-auth/drizzle-adapter — MIT
 @better-auth/kysely-adapter — MIT
@@ -71,6 +70,7 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @img/sharp-libvips-linux-x64 — LGPL-3.0-or-later; copyright: Lovell Fuller and libvips contributors; license text: https://www.gnu.org/licenses/lgpl-3.0.html
 @img/sharp-linux-x64 — Apache-2.0
 @ioredis/commands — MIT
+@isaacs/nonrecursive-glob-match — BlueOak-1.0.0
 @jridgewell/gen-mapping — MIT
 @jridgewell/remapping — MIT
 @jridgewell/resolve-uri — MIT
@@ -87,7 +87,6 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @oozcitak/url — MIT
 @oozcitak/util — MIT
 @opentelemetry/api — Apache-2.0
-@opentelemetry/semantic-conventions — Apache-2.0
 @orpc/client — MIT
 @orpc/contract — MIT
 @orpc/interop — MIT
@@ -109,6 +108,7 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @paper-design/shaders — Apache-2.0 (registry; see docs/LICENSE-POLICY.md)
 @paper-design/shaders-react — Apache-2.0 (registry; see docs/LICENSE-POLICY.md)
 @polka/url — MIT
+@prometheus-io/client — Apache-2.0
 @radix-ui/number — MIT
 @radix-ui/primitive — MIT
 @radix-ui/react-accessible-icon — MIT
@@ -172,6 +172,7 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @react-email/render — MIT
 @rolldown/binding-linux-x64-gnu — MIT
 @rolldown/pluginutils — MIT
+@rollup/rollup-linux-x64-gnu — MIT
 @selderee/plugin-htmlparser2 — MIT
 @smithy/core — Apache-2.0
 @smithy/credential-provider-imds — Apache-2.0
@@ -220,21 +221,20 @@ See docs/LICENSE-POLICY.md for approval policy and documented exceptions.
 @types/estree — MIT
 @types/node — MIT
 @types/react — MIT
-@types/react-dom — MIT
 @types/ws — MIT
 @vitest/browser — MIT
 @vitest/browser-preview — MIT
-@vitest/coverage-v8 — MIT
-@vitest/expect — MIT
 @vitest/mocker — MIT
 @vitest/pretty-format — MIT
-@vitest/runner — MIT
-@vitest/snapshot — MIT
 @vitest/spy — MIT
+@vitest/ui — MIT
 @vitest/utils — MIT
 @voidzero-dev/vite-plus-core — MIT
+@voidzero-dev/vite-plus-linux-x64-gnu — MIT
 @xmldom/is-dom-node — MIT
 @xmldom/xmldom — MIT
+@yuku-core/binding-linux-x64-gnu — MIT
+@yuku-toolchain/types — MIT
 accepts — MIT
 ajv — MIT
 ajv-formats — MIT
@@ -247,8 +247,8 @@ aria-hidden — MIT
 aria-query — Apache-2.0
 asn1 — MIT
 assertion-error — MIT
-ast-v8-to-istanbul — MIT
 atomically — MIT
+aws4fetch — MIT
 babel-dead-code-elimination — MIT
 balanced-match — MIT
 base64-js — MIT
@@ -291,7 +291,7 @@ debounce — MIT
 debounce-fn — MIT
 debug — MIT
 decode-uri-component — MIT
-deepmerge — MIT
+deepmerge-ts — BSD-3-Clause
 defu — MIT
 denque — Apache-2.0
 depd — MIT
@@ -305,6 +305,7 @@ domelementtype — BSD-2-Clause
 domhandler — BSD-2-Clause
 domutils — BSD-2-Clause
 dot-prop — MIT
+drizzle-kit — MIT
 drizzle-orm — Apache-2.0
 dunder-proto — MIT
 ee-first — MIT
@@ -339,9 +340,11 @@ fast-xml-builder — MIT
 fast-xml-parser — MIT
 fdir — MIT
 fetchdts — MIT
+fflate — MIT
 files-sdk — MIT
 filter-obj — MIT
 finalhandler — MIT
+flatted — ISC
 forwarded — MIT
 fresh — MIT
 function-bind — MIT
@@ -350,14 +353,12 @@ get-intrinsic — MIT
 get-nonce — MIT
 get-proto — MIT
 glob — BlueOak-1.0.0
-globals — MIT
 gopd — MIT
 h3 — MIT
 has-flag — MIT
 has-symbols — MIT
 hasown — MIT
 hono — MIT
-html-escaper — MIT
 html-to-text — MIT
 html5parser — MIT
 htmlparser2 — MIT
@@ -374,9 +375,6 @@ is-unicode-supported — MIT
 is-unsafe — MIT
 isbot — Unlicense
 isexe — ISC
-istanbul-lib-coverage — BSD-3-Clause
-istanbul-lib-report — BSD-3-Clause
-istanbul-reports — BSD-3-Clause
 jiti — MIT
 jose — MIT
 js-tokens — MIT
@@ -392,22 +390,19 @@ lie — MIT
 lightningcss — MPL-2.0; copyright: Parcel contributors; license text: https://www.mozilla.org/MPL/2.0/
 lightningcss-linux-x64-gnu — MPL-2.0; copyright: Parcel contributors; license text: https://www.mozilla.org/MPL/2.0/
 localforage — Apache-2.0
-lodash.defaults — MIT
-lodash.isarguments — MIT
 log-symbols — MIT
-lru-cache — ISC
 lru-cache — BlueOak-1.0.0
+lru-cache — ISC
 lucide-react — ISC
 luxon — MIT
 lz-string — MIT
 magic-string — MIT
-magicast — MIT
-make-dir — MIT
 marked — MIT
 math-intrinsics — MIT
 mdn-data — CC0-1.0
 media-typer — MIT
 merge-descriptors — MIT
+mime — MIT
 mime-db — MIT
 mime-types — MIT
 mimic-function — MIT
@@ -427,15 +422,16 @@ node-gyp-build-optional-packages — MIT
 node-releases — MIT
 node-rsa — MIT
 nodemailer — MIT-0
-normalize-path — MIT
 nypm — MIT
 object-assign — MIT
 object-inspect — MIT
 obug — MIT
+ocache — MIT
 on-finished — MIT
 once — ISC
 openapi-types — MIT
 p-limit — MIT
+p-map — MIT
 parseley — MIT
 parseurl — MIT
 path-expression-matcher — MIT
@@ -455,7 +451,6 @@ postgres — Unlicense
 prettier — MIT
 pretty-format — MIT
 prismjs — MIT
-prom-client — Apache-2.0
 prompts — MIT
 proxy-addr — MIT
 qs — BSD-3-Clause
@@ -475,11 +470,11 @@ react-style-singleton — MIT
 readable-stream — MIT
 readdirp — MIT
 redis-errors — MIT
-redis-parser — MIT
 require-from-string — MIT
 resend — MIT
 ret — MIT
 rolldown — MIT
+rollup — MIT
 rou3 — MIT
 router — MIT
 safe-buffer — MIT
@@ -502,7 +497,6 @@ side-channel — MIT
 side-channel-list — MIT
 side-channel-map — MIT
 side-channel-weakmap — MIT
-siginfo — ISC
 sirv — MIT
 sisteransi — MIT
 socket.io — MIT
@@ -514,7 +508,6 @@ source-map — BSD-3-Clause
 source-map-js — BSD-3-Clause
 split-on-first — MIT
 srvx — MIT
-stackback — MIT
 standard-as-callback — MIT
 standardwebhooks — MIT
 statuses — MIT
@@ -541,7 +534,6 @@ toidentifier — MIT
 totalist — MIT
 tsconfig-paths — MIT
 tslib — 0BSD
-tsx — MIT
 tw-animate-css — MIT
 type-fest — (MIT OR CC0-1.0)
 type-is — MIT
@@ -556,8 +548,8 @@ use-callback-ref — MIT
 use-sidecar — MIT
 use-sync-external-store — MIT
 util-deprecate — MIT
+valibot — MIT
 vary — MIT
-vite — MIT
 vitefu — MIT
 vitest — MIT
 webpack-virtual-modules — MIT
@@ -576,5 +568,7 @@ xpath — MIT
 yallist — ISC
 yocto-queue — MIT
 yoctocolors — MIT
+yuku-core — MIT
+yuku-parser — MIT
 zod — MIT
 zod-to-json-schema — ISC

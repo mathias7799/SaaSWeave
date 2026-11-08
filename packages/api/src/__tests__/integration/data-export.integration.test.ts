@@ -14,7 +14,7 @@ import {
   seedOrgWithOwner
 } from "./harness";
 
-describe.sequential("console.dataExport", () => {
+describe("console.dataExport", () => {
   integrationIt("member cannot request a data export (FORBIDDEN)", async () => {
     const seed = await seedOrgWithOwner({ role: "member" });
     await seedOrganizationPlan(seed.organizationId);

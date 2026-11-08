@@ -9,7 +9,7 @@ import {
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("email", () => {
+describe("email", () => {
   beforeEach(async () => {
     await resetDb();
   });

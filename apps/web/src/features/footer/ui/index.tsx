@@ -15,6 +15,8 @@ type FooterLink =
   | { label: () => string; href: LinkProps["href"]; to?: never }
   | { label: () => string; href?: never; to: LinkProps["to"] };
 
+const copyrightYear = new Date().getFullYear();
+
 const navLinks: FooterLink[] = [
   { label: () => m.footer__pricing(), to: "/pricing" },
   { label: () => m.footer__about(), to: "/about" },
@@ -92,7 +94,7 @@ export function Footer({
 
       <div className="container mx-auto flex items-center justify-between gap-4 border-t px-4 py-6 text-sm text-muted-foreground">
         <p>
-          &copy; {new Date().getFullYear()} {appConfig.site.author}
+          &copy; {copyrightYear} {appConfig.site.author}
         </p>
 
         <p className="inline-flex items-center gap-1">

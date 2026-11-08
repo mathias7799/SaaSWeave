@@ -3,7 +3,7 @@ import { describe, expect } from "vite-plus/test";
 
 import { createCallerFor, expectOrpcError, integrationIt, seedOrgWithOwner } from "./harness";
 
-describe.sequential("console profile", () => {
+describe("console profile", () => {
   integrationIt("get returns the caller profile fields", async () => {
     const seed = await seedOrgWithOwner({
       email: "profile@integration.test",

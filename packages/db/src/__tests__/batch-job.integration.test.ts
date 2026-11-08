@@ -16,7 +16,7 @@ import {
 
 import { resetDb, seedOrgWithOwner } from "./db-harness";
 
-describe.sequential("batch-job", () => {
+describe("batch-job", () => {
   beforeEach(async () => {
     await resetDb();
   });
